@@ -1,0 +1,864 @@
+[
+  {
+    "caseId": "TICK-1009",
+    "customer": {
+      "name": "Saravana prabu M R",
+      "email": "saravana112006@gmail.com",
+      "phone": "+919345834744",
+      "notes": ""
+    },
+    "movie": {
+      "id": "MOV-101",
+      "title": "Dune: Part Two",
+      "poster": "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600&auto=format&fit=crop&q=80"
+    },
+    "theatre": {
+      "id": "THTR-01",
+      "name": "CineWave IMAX Grand",
+      "city": "Metropolis"
+    },
+    "showtime": {
+      "id": "SHOW-109",
+      "date": "2026-09-01",
+      "time": "04:30 PM",
+      "screen": "Audi 1 (IMAX)",
+      "experience": "IMAX 3D / Dolby 7.1"
+    },
+    "seats": [
+      {
+        "seatId": "F5",
+        "tier": "VIP Recliners",
+        "price": 24
+      },
+      {
+        "seatId": "F6",
+        "tier": "VIP Recliners",
+        "price": 24
+      }
+    ],
+    "pricing": {
+      "subtotal": 48,
+      "convenienceFee": 4.8,
+      "tax": 9.5,
+      "discount": 0,
+      "total": 62.3
+    },
+    "payment": {
+      "method": "Credit Card",
+      "last4": "8048",
+      "transactionId": "TXN-34508052",
+      "status": "Paid"
+    },
+    "currentStage": "Resolution",
+    "status": "Resolved-Completed",
+    "createdAt": "2026-09-01T18:05:54.797Z",
+    "resolvedAt": "2026-09-01T18:05:54.797Z",
+    "stageHistory": [
+      {
+        "stage": "Selection",
+        "status": "Completed",
+        "timestamp": "2026-09-01T18:05:54.797Z"
+      },
+      {
+        "stage": "Seat Reservation",
+        "status": "Completed",
+        "timestamp": "2026-09-01T18:05:54.797Z"
+      },
+      {
+        "stage": "Customer Confirmation",
+        "status": "Completed",
+        "timestamp": "2026-09-01T18:05:54.797Z"
+      },
+      {
+        "stage": "Fulfillment & Issuance",
+        "status": "Completed",
+        "timestamp": "2026-09-01T18:05:54.797Z"
+      },
+      {
+        "stage": "Resolution",
+        "status": "Resolved-Completed",
+        "timestamp": "2026-09-01T18:05:54.797Z"
+      }
+    ],
+    "notificationsSent": [
+      {
+        "channel": "Email",
+        "recipient": "saravana112006@gmail.com",
+        "subject": "Booking Confirmed: Dune: Part Two [TICK-1009]",
+        "timestamp": "2026-09-01T18:05:54.797Z"
+      }
+    ]
+  },
+  {
+    "caseId": "TICK-1008",
+    "customer": {
+      "name": "Sarah John",
+      "email": "sarahjohn@gmail.com",
+      "phone": "+1 (555) 1234-9876",
+      "notes": "Booster seat"
+    },
+    "movie": {
+      "id": "MOV-101",
+      "title": "Dune: Part Two",
+      "poster": "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600&auto=format&fit=crop&q=80"
+    },
+    "theatre": {
+      "id": "THTR-01",
+      "name": "CineWave IMAX Grand",
+      "city": "Metropolis"
+    },
+    "showtime": {
+      "id": "SHOW-113",
+      "date": "2026-08-31",
+      "time": "10:30 PM",
+      "screen": "Audi 1 (IMAX)",
+      "experience": "IMAX 3D / Dolby 7.1"
+    },
+    "seats": [
+      {
+        "seatId": "E2",
+        "tier": "VIP Recliners",
+        "price": 24
+      },
+      {
+        "seatId": "E3",
+        "tier": "VIP Recliners",
+        "price": 24
+      },
+      {
+        "seatId": "E4",
+        "tier": "VIP Recliners",
+        "price": 24
+      }
+    ],
+    "pricing": {
+      "subtotal": 72,
+      "convenienceFee": 7.2,
+      "tax": 14.26,
+      "discount": 0,
+      "total": 93.46
+    },
+    "payment": {
+      "method": "Credit Card",
+      "last4": "5887",
+      "transactionId": "TXN-35361994",
+      "status": "Paid"
+    },
+    "currentStage": "Resolution",
+    "status": "Resolved-Completed",
+    "createdAt": "2026-08-31T11:17:43.535Z",
+    "resolvedAt": "2026-08-31T11:17:43.535Z",
+    "stageHistory": [
+      {
+        "stage": "Selection",
+        "status": "Completed",
+        "timestamp": "2026-08-31T11:17:43.535Z"
+      },
+      {
+        "stage": "Seat Reservation",
+        "status": "Completed",
+        "timestamp": "2026-08-31T11:17:43.535Z"
+      },
+      {
+        "stage": "Customer Confirmation",
+        "status": "Completed",
+        "timestamp": "2026-08-31T11:17:43.535Z"
+      },
+      {
+        "stage": "Fulfillment & Issuance",
+        "status": "Completed",
+        "timestamp": "2026-08-31T11:17:43.535Z"
+      },
+      {
+        "stage": "Resolution",
+        "status": "Resolved-Completed",
+        "timestamp": "2026-08-31T11:17:43.535Z"
+      }
+    ],
+    "notificationsSent": [
+      {
+        "channel": "Email",
+        "recipient": "sarahjohn@gmail.com",
+        "subject": "Booking Confirmed: Dune: Part Two [TICK-1008]",
+        "timestamp": "2026-08-31T11:17:43.535Z"
+      }
+    ]
+  },
+  {
+    "caseId": "TICK-1007",
+    "customer": {
+      "name": "Sarah John",
+      "email": "sarahjohn@gmail.com",
+      "phone": "+1 (555) 1234-9876",
+      "notes": "Booster seat"
+    },
+    "movie": {
+      "id": "MOV-101",
+      "title": "Dune: Part Two",
+      "poster": "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600&auto=format&fit=crop&q=80"
+    },
+    "theatre": {
+      "id": "THTR-01",
+      "name": "CineWave IMAX Grand",
+      "city": "Metropolis"
+    },
+    "showtime": {
+      "id": "SHOW-113",
+      "date": "2026-08-31",
+      "time": "10:30 PM",
+      "screen": "Audi 1 (IMAX)",
+      "experience": "IMAX 3D / Dolby 7.1"
+    },
+    "seats": [
+      {
+        "seatId": "F1",
+        "tier": "VIP Recliners",
+        "price": 24
+      },
+      {
+        "seatId": "F2",
+        "tier": "VIP Recliners",
+        "price": 24
+      },
+      {
+        "seatId": "F3",
+        "tier": "VIP Recliners",
+        "price": 24
+      }
+    ],
+    "pricing": {
+      "subtotal": 72,
+      "convenienceFee": 7.2,
+      "tax": 14.26,
+      "discount": 0,
+      "total": 93.46
+    },
+    "payment": {
+      "method": "Credit Card",
+      "last4": "9019",
+      "transactionId": "TXN-17948498",
+      "status": "Paid"
+    },
+    "currentStage": "Resolution",
+    "status": "Resolved-Completed",
+    "createdAt": "2026-08-31T11:13:25.694Z",
+    "resolvedAt": "2026-08-31T11:13:25.694Z",
+    "stageHistory": [
+      {
+        "stage": "Selection",
+        "status": "Completed",
+        "timestamp": "2026-08-31T11:13:25.694Z"
+      },
+      {
+        "stage": "Seat Reservation",
+        "status": "Completed",
+        "timestamp": "2026-08-31T11:13:25.694Z"
+      },
+      {
+        "stage": "Customer Confirmation",
+        "status": "Completed",
+        "timestamp": "2026-08-31T11:13:25.694Z"
+      },
+      {
+        "stage": "Fulfillment & Issuance",
+        "status": "Completed",
+        "timestamp": "2026-08-31T11:13:25.694Z"
+      },
+      {
+        "stage": "Resolution",
+        "status": "Resolved-Completed",
+        "timestamp": "2026-08-31T11:13:25.694Z"
+      }
+    ],
+    "notificationsSent": [
+      {
+        "channel": "Email",
+        "recipient": "sarahjohn@gmail.com",
+        "subject": "Booking Confirmed: Dune: Part Two [TICK-1007]",
+        "timestamp": "2026-08-31T11:13:25.694Z"
+      }
+    ]
+  },
+  {
+    "caseId": "TICK-1006",
+    "customer": {
+      "name": "Sarah John",
+      "email": "sarahjohn@gmail.com",
+      "phone": "+1 (555) 1234-9876",
+      "notes": "Booster seat"
+    },
+    "movie": {
+      "id": "MOV-103",
+      "title": "Interstellar: 10th Anniversary",
+      "poster": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&auto=format&fit=crop&q=80"
+    },
+    "theatre": {
+      "id": "THTR-04",
+      "name": "CineWave Royale",
+      "city": "Star City"
+    },
+    "showtime": {
+      "id": "SHOW-112",
+      "date": "2026-08-31",
+      "time": "10:30 PM",
+      "screen": "Audi 1 (IMAX)",
+      "experience": "IMAX 3D / Dolby 7.1"
+    },
+    "seats": [
+      {
+        "seatId": "E1",
+        "tier": "VIP Recliners",
+        "price": 24
+      },
+      {
+        "seatId": "E2",
+        "tier": "VIP Recliners",
+        "price": 24
+      },
+      {
+        "seatId": "E3",
+        "tier": "VIP Recliners",
+        "price": 24
+      },
+      {
+        "seatId": "E4",
+        "tier": "VIP Recliners",
+        "price": 24
+      }
+    ],
+    "pricing": {
+      "subtotal": 96,
+      "convenienceFee": 9.6,
+      "tax": 19.01,
+      "discount": 0,
+      "total": 124.61
+    },
+    "payment": {
+      "method": "Credit Card",
+      "last4": "5070",
+      "transactionId": "TXN-46001066",
+      "status": "Paid"
+    },
+    "currentStage": "Resolution",
+    "status": "Resolved-Completed",
+    "createdAt": "2026-08-31T08:19:57.970Z",
+    "resolvedAt": "2026-08-31T08:19:57.970Z",
+    "stageHistory": [
+      {
+        "stage": "Selection",
+        "status": "Completed",
+        "timestamp": "2026-08-31T08:19:57.970Z"
+      },
+      {
+        "stage": "Seat Reservation",
+        "status": "Completed",
+        "timestamp": "2026-08-31T08:19:57.970Z"
+      },
+      {
+        "stage": "Customer Confirmation",
+        "status": "Completed",
+        "timestamp": "2026-08-31T08:19:57.970Z"
+      },
+      {
+        "stage": "Fulfillment & Issuance",
+        "status": "Completed",
+        "timestamp": "2026-08-31T08:19:57.970Z"
+      },
+      {
+        "stage": "Resolution",
+        "status": "Resolved-Completed",
+        "timestamp": "2026-08-31T08:19:57.970Z"
+      }
+    ],
+    "notificationsSent": [
+      {
+        "channel": "Email",
+        "recipient": "sarahjohn@gmail.com",
+        "subject": "Booking Confirmed: Interstellar: 10th Anniversary [TICK-1006]",
+        "timestamp": "2026-08-31T08:19:57.970Z"
+      }
+    ]
+  },
+  {
+    "caseId": "TICK-1005",
+    "customer": {
+      "name": "Sarah",
+      "email": "sarahjohn@gmail.com",
+      "phone": "+1 (555) 1234-9876",
+      "notes": "Booster seat"
+    },
+    "movie": {
+      "id": "MOV-104",
+      "title": "Spider-Man: Across the Spider-Verse",
+      "poster": "https://images.unsplash.com/photo-1635805737707-575885ab0820?w=600&auto=format&fit=crop&q=80"
+    },
+    "theatre": {
+      "id": "THTR-02",
+      "name": "CineWave Luxe Cinema",
+      "city": "Metropolis"
+    },
+    "showtime": {
+      "id": "SHOW-110",
+      "date": "2026-08-31",
+      "time": "10:30 PM",
+      "screen": "Audi 1 (IMAX)",
+      "experience": "IMAX 3D / Dolby 7.1"
+    },
+    "seats": [
+      {
+        "seatId": "F1",
+        "tier": "VIP Recliners",
+        "price": 24
+      },
+      {
+        "seatId": "F2",
+        "tier": "VIP Recliners",
+        "price": 24
+      },
+      {
+        "seatId": "F3",
+        "tier": "VIP Recliners",
+        "price": 24
+      }
+    ],
+    "pricing": {
+      "subtotal": 72,
+      "convenienceFee": 7.2,
+      "tax": 14.26,
+      "discount": 0,
+      "total": 93.46
+    },
+    "payment": {
+      "method": "Credit Card",
+      "last4": "7071",
+      "transactionId": "TXN-74022094",
+      "status": "Paid"
+    },
+    "currentStage": "Resolution",
+    "status": "Resolved-Completed",
+    "createdAt": "2026-08-31T08:12:53.115Z",
+    "resolvedAt": "2026-08-31T08:12:53.115Z",
+    "stageHistory": [
+      {
+        "stage": "Selection",
+        "status": "Completed",
+        "timestamp": "2026-08-31T08:12:53.115Z"
+      },
+      {
+        "stage": "Seat Reservation",
+        "status": "Completed",
+        "timestamp": "2026-08-31T08:12:53.115Z"
+      },
+      {
+        "stage": "Customer Confirmation",
+        "status": "Completed",
+        "timestamp": "2026-08-31T08:12:53.115Z"
+      },
+      {
+        "stage": "Fulfillment & Issuance",
+        "status": "Completed",
+        "timestamp": "2026-08-31T08:12:53.115Z"
+      },
+      {
+        "stage": "Resolution",
+        "status": "Resolved-Completed",
+        "timestamp": "2026-08-31T08:12:53.115Z"
+      }
+    ],
+    "notificationsSent": [
+      {
+        "channel": "Email",
+        "recipient": "sarahjohn@gmail.com",
+        "subject": "Booking Confirmed: Spider-Man: Across the Spider-Verse [TICK-1005]",
+        "timestamp": "2026-08-31T08:12:53.115Z"
+      }
+    ]
+  },
+  {
+    "caseId": "TICK-1004",
+    "customer": {
+      "name": "Yazhini",
+      "email": "yazhini44328@gmail.com",
+      "phone": "+1 (555) 1234-9876",
+      "notes": "Booster seat"
+    },
+    "movie": {
+      "id": "MOV-101",
+      "title": "Dune: Part Two",
+      "poster": "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600&auto=format&fit=crop&q=80"
+    },
+    "theatre": {
+      "id": "THTR-01",
+      "name": "CineWave IMAX Grand",
+      "city": "Metropolis"
+    },
+    "showtime": {
+      "id": "SHOW-109",
+      "date": "2026-09-01",
+      "time": "04:30 PM",
+      "screen": "Audi 1 (IMAX)",
+      "experience": "IMAX 3D / Dolby 7.1"
+    },
+    "seats": [
+      {
+        "seatId": "F2",
+        "tier": "VIP Recliners",
+        "price": 24
+      },
+      {
+        "seatId": "F1",
+        "tier": "VIP Recliners",
+        "price": 24
+      },
+      {
+        "seatId": "F3",
+        "tier": "VIP Recliners",
+        "price": 24
+      }
+    ],
+    "pricing": {
+      "subtotal": 72,
+      "convenienceFee": 7.2,
+      "tax": 14.26,
+      "discount": 0,
+      "total": 93.46
+    },
+    "payment": {
+      "method": "Credit Card",
+      "last4": "8900",
+      "transactionId": "TXN-32938106",
+      "status": "Paid"
+    },
+    "currentStage": "Cancellation",
+    "status": "Resolved-Cancelled",
+    "createdAt": "2026-08-31T07:54:34.272Z",
+    "resolvedAt": "2026-08-31T07:55:45.720Z",
+    "stageHistory": [
+      {
+        "stage": "Selection",
+        "status": "Completed",
+        "timestamp": "2026-08-31T07:54:34.272Z"
+      },
+      {
+        "stage": "Seat Reservation",
+        "status": "Completed",
+        "timestamp": "2026-08-31T07:54:34.272Z"
+      },
+      {
+        "stage": "Customer Confirmation",
+        "status": "Completed",
+        "timestamp": "2026-08-31T07:54:34.272Z"
+      },
+      {
+        "stage": "Fulfillment & Issuance",
+        "status": "Completed",
+        "timestamp": "2026-08-31T07:54:34.272Z"
+      },
+      {
+        "stage": "Resolution",
+        "status": "Resolved-Completed",
+        "timestamp": "2026-08-31T07:54:34.272Z"
+      },
+      {
+        "stage": "Cancellation & Refund",
+        "status": "Resolved-Cancelled",
+        "timestamp": "2026-08-31T07:55:45.720Z"
+      }
+    ],
+    "notificationsSent": [
+      {
+        "channel": "Email",
+        "recipient": "yazhini44328@gmail.com",
+        "subject": "Booking Confirmed: Dune: Part Two [TICK-1004]",
+        "timestamp": "2026-08-31T07:54:34.272Z"
+      },
+      {
+        "channel": "Email",
+        "recipient": "yazhini44328@gmail.com",
+        "subject": "Booking Cancellation Notice [TICK-1004]",
+        "timestamp": "2026-08-31T07:55:45.720Z"
+      }
+    ]
+  },
+  {
+    "caseId": "TICK-1003",
+    "customer": {
+      "name": "Test Customer",
+      "email": "test.customer@example.com",
+      "phone": "+1 (555) 345-6789",
+      "notes": "Automated test case"
+    },
+    "movie": {
+      "id": "MOV-101",
+      "title": "Dune: Part Two",
+      "poster": "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600&auto=format&fit=crop&q=80"
+    },
+    "theatre": {
+      "id": "THTR-01",
+      "name": "CineWave IMAX Grand",
+      "city": "Metropolis"
+    },
+    "showtime": {
+      "id": "SHOW-101",
+      "date": "2026-08-29",
+      "time": "10:30 AM",
+      "screen": "Audi 1 (IMAX)",
+      "experience": "IMAX 3D"
+    },
+    "seats": [
+      {
+        "seatId": "F7",
+        "tier": "VIP",
+        "price": 22
+      },
+      {
+        "seatId": "F8",
+        "tier": "VIP",
+        "price": 22
+      }
+    ],
+    "pricing": {
+      "subtotal": 44,
+      "convenienceFee": 4.4,
+      "tax": 8.71,
+      "discount": 0,
+      "total": 57.11
+    },
+    "payment": {
+      "method": "Credit Card",
+      "last4": "9999",
+      "transactionId": "TXN-42917068",
+      "status": "Paid"
+    },
+    "currentStage": "Cancellation",
+    "status": "Resolved-Cancelled",
+    "createdAt": "2026-08-28T17:04:03.857Z",
+    "resolvedAt": "2026-08-28T17:04:03.867Z",
+    "stageHistory": [
+      {
+        "stage": "Selection",
+        "status": "Completed",
+        "timestamp": "2026-08-28T17:04:03.857Z"
+      },
+      {
+        "stage": "Seat Reservation",
+        "status": "Completed",
+        "timestamp": "2026-08-28T17:04:03.857Z"
+      },
+      {
+        "stage": "Customer Confirmation",
+        "status": "Completed",
+        "timestamp": "2026-08-28T17:04:03.857Z"
+      },
+      {
+        "stage": "Fulfillment & Issuance",
+        "status": "Completed",
+        "timestamp": "2026-08-28T17:04:03.857Z"
+      },
+      {
+        "stage": "Resolution",
+        "status": "Resolved-Completed",
+        "timestamp": "2026-08-28T17:04:03.857Z"
+      },
+      {
+        "stage": "Cancellation & Refund",
+        "status": "Resolved-Cancelled",
+        "timestamp": "2026-08-28T17:04:03.867Z"
+      }
+    ],
+    "notificationsSent": [
+      {
+        "channel": "Email",
+        "recipient": "test.customer@example.com",
+        "subject": "Booking Confirmed: Dune: Part Two [TICK-1003]",
+        "timestamp": "2026-08-28T17:04:03.857Z"
+      },
+      {
+        "channel": "Email",
+        "recipient": "test.customer@example.com",
+        "subject": "Booking Cancellation Notice [TICK-1003]",
+        "timestamp": "2026-08-28T17:04:03.867Z"
+      }
+    ]
+  },
+  {
+    "caseId": "TICK-1001",
+    "customer": {
+      "name": "Sarah Connor",
+      "email": "sarah.connor@example.com",
+      "phone": "+1 (555) 234-5678",
+      "notes": "Wheelchair accessible lane preferred"
+    },
+    "movie": {
+      "id": "MOV-101",
+      "title": "Dune: Part Two",
+      "poster": "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600&auto=format&fit=crop&q=80"
+    },
+    "theatre": {
+      "id": "THTR-01",
+      "name": "CineWave IMAX Grand",
+      "city": "Metropolis"
+    },
+    "showtime": {
+      "id": "SHOW-101",
+      "date": "2026-08-29",
+      "time": "10:30 AM",
+      "screen": "Audi 1 (IMAX)",
+      "experience": "IMAX 3D"
+    },
+    "seats": [
+      {
+        "seatId": "E4",
+        "tier": "VIP",
+        "price": 22
+      },
+      {
+        "seatId": "E5",
+        "tier": "VIP",
+        "price": 22
+      }
+    ],
+    "pricing": {
+      "subtotal": 44,
+      "convenienceFee": 4.4,
+      "tax": 8.71,
+      "discount": 0,
+      "total": 57.11
+    },
+    "payment": {
+      "method": "Credit Card",
+      "last4": "4242",
+      "transactionId": "TXN-89410423",
+      "status": "Paid"
+    },
+    "currentStage": "Resolution",
+    "status": "Resolved-Completed",
+    "createdAt": "2026-08-28T14:30:00.000Z",
+    "resolvedAt": "2026-08-28T14:34:20.000Z",
+    "stageHistory": [
+      {
+        "stage": "Selection",
+        "status": "Completed",
+        "timestamp": "2026-08-28T14:30:10.000Z"
+      },
+      {
+        "stage": "Seat Reservation",
+        "status": "Completed",
+        "timestamp": "2026-08-28T14:32:00.000Z"
+      },
+      {
+        "stage": "Customer Confirmation",
+        "status": "Completed",
+        "timestamp": "2026-08-28T14:33:45.000Z"
+      },
+      {
+        "stage": "Fulfillment & Issuance",
+        "status": "Completed",
+        "timestamp": "2026-08-28T14:34:00.000Z"
+      },
+      {
+        "stage": "Resolution",
+        "status": "Resolved-Completed",
+        "timestamp": "2026-08-28T14:34:20.000Z"
+      }
+    ],
+    "notificationsSent": [
+      {
+        "channel": "Email",
+        "recipient": "sarah.connor@example.com",
+        "subject": "Booking Confirmed: Dune: Part Two [TICK-1001]",
+        "timestamp": "2026-08-28T14:34:05.000Z"
+      }
+    ]
+  },
+  {
+    "caseId": "TICK-1002",
+    "customer": {
+      "name": "Bruce Wayne",
+      "email": "bruce.wayne@waynecorp.com",
+      "phone": "+1 (555) 987-6543",
+      "notes": "VIP Box request"
+    },
+    "movie": {
+      "id": "MOV-102",
+      "title": "Oppenheimer",
+      "poster": "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=600&auto=format&fit=crop&q=80"
+    },
+    "theatre": {
+      "id": "THTR-01",
+      "name": "CineWave IMAX Grand",
+      "city": "Metropolis"
+    },
+    "showtime": {
+      "id": "SHOW-106",
+      "date": "2026-08-29",
+      "time": "07:30 PM",
+      "screen": "Audi 2 (70mm Laser)",
+      "experience": "70mm Laser"
+    },
+    "seats": [
+      {
+        "seatId": "A1",
+        "tier": "Standard",
+        "price": 15
+      },
+      {
+        "seatId": "A2",
+        "tier": "Standard",
+        "price": 15
+      }
+    ],
+    "pricing": {
+      "subtotal": 30,
+      "convenienceFee": 3,
+      "tax": 5.94,
+      "discount": 5,
+      "total": 33.94
+    },
+    "payment": {
+      "method": "Apple Pay",
+      "last4": "9012",
+      "transactionId": "TXN-71930219",
+      "status": "Paid"
+    },
+    "currentStage": "Resolution",
+    "status": "Resolved-Completed",
+    "createdAt": "2026-08-28T16:15:00.000Z",
+    "resolvedAt": "2026-08-28T16:18:10.000Z",
+    "stageHistory": [
+      {
+        "stage": "Selection",
+        "status": "Completed",
+        "timestamp": "2026-08-28T16:15:10.000Z"
+      },
+      {
+        "stage": "Seat Reservation",
+        "status": "Completed",
+        "timestamp": "2026-08-28T16:16:30.000Z"
+      },
+      {
+        "stage": "Customer Confirmation",
+        "status": "Completed",
+        "timestamp": "2026-08-28T16:17:40.000Z"
+      },
+      {
+        "stage": "Fulfillment & Issuance",
+        "status": "Completed",
+        "timestamp": "2026-08-28T16:18:00.000Z"
+      },
+      {
+        "stage": "Resolution",
+        "status": "Resolved-Completed",
+        "timestamp": "2026-08-28T16:18:10.000Z"
+      }
+    ],
+    "notificationsSent": [
+      {
+        "channel": "Email",
+        "recipient": "bruce.wayne@waynecorp.com",
+        "subject": "Booking Confirmed: Oppenheimer [TICK-1002]",
+        "timestamp": "2026-08-28T16:18:05.000Z"
+      }
+    ]
+  }
+]

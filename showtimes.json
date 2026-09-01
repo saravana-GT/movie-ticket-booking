@@ -1,0 +1,279 @@
+[
+  {
+    "id": "SHOW-101",
+    "movieId": "MOV-101",
+    "theatreId": "THTR-01",
+    "screen": "Audi 1 (IMAX)",
+    "time": "10:30 AM",
+    "date": "2026-08-29",
+    "experience": "IMAX 3D",
+    "pricing": {
+      "standard": 12,
+      "premium": 16,
+      "vip": 22
+    },
+    "occupiedSeats": [
+      "A1",
+      "A2",
+      "C5",
+      "C6",
+      "E4",
+      "E5",
+      "E6"
+    ]
+  },
+  {
+    "id": "SHOW-102",
+    "movieId": "MOV-101",
+    "theatreId": "THTR-01",
+    "screen": "Audi 1 (IMAX)",
+    "time": "02:15 PM",
+    "date": "2026-08-29",
+    "experience": "IMAX 3D",
+    "pricing": {
+      "standard": 14,
+      "premium": 18,
+      "vip": 25
+    },
+    "occupiedSeats": [
+      "B3",
+      "B4",
+      "D1",
+      "D2",
+      "F7",
+      "F8"
+    ]
+  },
+  {
+    "id": "SHOW-103",
+    "movieId": "MOV-101",
+    "theatreId": "THTR-01",
+    "screen": "Audi 1 (IMAX)",
+    "time": "06:45 PM",
+    "date": "2026-08-29",
+    "experience": "IMAX 3D",
+    "pricing": {
+      "standard": 16,
+      "premium": 20,
+      "vip": 28
+    },
+    "occupiedSeats": [
+      "B1",
+      "B2",
+      "C3",
+      "C4",
+      "E1",
+      "E2",
+      "F3",
+      "F4",
+      "F5"
+    ]
+  },
+  {
+    "id": "SHOW-104",
+    "movieId": "MOV-101",
+    "theatreId": "THTR-02",
+    "screen": "Luxe Screen 2",
+    "time": "04:00 PM",
+    "date": "2026-08-29",
+    "experience": "Dolby Atmos",
+    "pricing": {
+      "standard": 11,
+      "premium": 15,
+      "vip": 20
+    },
+    "occupiedSeats": [
+      "A4",
+      "A5",
+      "C1",
+      "C2"
+    ]
+  },
+  {
+    "id": "SHOW-105",
+    "movieId": "MOV-102",
+    "theatreId": "THTR-01",
+    "screen": "Audi 2 (70mm Laser)",
+    "time": "11:00 AM",
+    "date": "2026-08-29",
+    "experience": "70mm Laser",
+    "pricing": {
+      "standard": 13,
+      "premium": 17,
+      "vip": 24
+    },
+    "occupiedSeats": [
+      "D4",
+      "D5",
+      "E7",
+      "E8"
+    ]
+  },
+  {
+    "id": "SHOW-106",
+    "movieId": "MOV-102",
+    "theatreId": "THTR-01",
+    "screen": "Audi 2 (70mm Laser)",
+    "time": "07:30 PM",
+    "date": "2026-08-29",
+    "experience": "70mm Laser",
+    "pricing": {
+      "standard": 15,
+      "premium": 19,
+      "vip": 26
+    },
+    "occupiedSeats": [
+      "A1",
+      "A2",
+      "B5",
+      "B6",
+      "F1",
+      "F2"
+    ]
+  },
+  {
+    "id": "SHOW-107",
+    "movieId": "MOV-103",
+    "theatreId": "THTR-03",
+    "screen": "Audi 3",
+    "time": "03:00 PM",
+    "date": "2026-08-29",
+    "experience": "4DX",
+    "pricing": {
+      "standard": 12,
+      "premium": 16,
+      "vip": 22
+    },
+    "occupiedSeats": [
+      "C3",
+      "C4"
+    ]
+  },
+  {
+    "id": "SHOW-108",
+    "movieId": "MOV-104",
+    "theatreId": "THTR-04",
+    "screen": "Screen 1",
+    "time": "01:15 PM",
+    "date": "2026-08-29",
+    "experience": "Dolby Digital",
+    "pricing": {
+      "standard": 10,
+      "premium": 14,
+      "vip": 18
+    },
+    "occupiedSeats": [
+      "B2",
+      "B3"
+    ]
+  },
+  {
+    "id": "SHOW-109",
+    "movieId": "MOV-101",
+    "theatreId": "THTR-01",
+    "screen": "Audi 1 (IMAX)",
+    "time": "04:30 PM",
+    "date": "2026-09-01",
+    "experience": "IMAX 3D / Dolby 7.1",
+    "pricing": {
+      "standard": 13,
+      "premium": 17,
+      "vip": 24
+    },
+    "occupiedSeats": [
+      "F5",
+      "F6"
+    ]
+  },
+  {
+    "id": "SHOW-110",
+    "movieId": "MOV-104",
+    "theatreId": "THTR-02",
+    "screen": "Audi 1 (IMAX)",
+    "time": "10:30 PM",
+    "date": "2026-08-31",
+    "experience": "IMAX 3D / Dolby 7.1",
+    "pricing": {
+      "standard": 13,
+      "premium": 17,
+      "vip": 24
+    },
+    "occupiedSeats": [
+      "F1",
+      "F2",
+      "F3"
+    ]
+  },
+  {
+    "id": "SHOW-111",
+    "movieId": "MOV-102",
+    "theatreId": "THTR-04",
+    "screen": "Audi 1 (IMAX)",
+    "time": "10:30 PM",
+    "date": "2026-08-31",
+    "experience": "IMAX 3D / Dolby 7.1",
+    "pricing": {
+      "standard": 13,
+      "premium": 17,
+      "vip": 24
+    },
+    "occupiedSeats": []
+  },
+  {
+    "id": "SHOW-112",
+    "movieId": "MOV-103",
+    "theatreId": "THTR-04",
+    "screen": "Audi 1 (IMAX)",
+    "time": "10:30 PM",
+    "date": "2026-08-31",
+    "experience": "IMAX 3D / Dolby 7.1",
+    "pricing": {
+      "standard": 13,
+      "premium": 17,
+      "vip": 24
+    },
+    "occupiedSeats": [
+      "E1",
+      "E2",
+      "E3",
+      "E4"
+    ]
+  },
+  {
+    "id": "SHOW-113",
+    "movieId": "MOV-101",
+    "theatreId": "THTR-01",
+    "screen": "Audi 1 (IMAX)",
+    "time": "10:30 PM",
+    "date": "2026-08-31",
+    "experience": "IMAX 3D / Dolby 7.1",
+    "pricing": {
+      "standard": 13,
+      "premium": 17,
+      "vip": 24
+    },
+    "occupiedSeats": [
+      "F1",
+      "F2",
+      "F3",
+      "E2",
+      "E3",
+      "E4"
+    ]
+  },
+  {
+    "id": "SHOW-114",
+    "movieId": "MOV-101",
+    "theatreId": "THTR-01",
+    "screen": "Audi 1 (IMAX)",
+    "time": "10:30 PM",
+    "date": "2026-08-31",
+    "experience": "IMAX 3D / Dolby 7.1",
+    "pricing": {
+      "standard": 13,
+      "premium": 17,
+      "vip": 24
+    },
+    "occupiedSeats": []
+  }
+]

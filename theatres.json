@@ -1,0 +1,38 @@
+[
+  {
+    "id": "THTR-01",
+    "name": "CineWave IMAX Grand",
+    "city": "Metropolis",
+    "location": "Downtown Central Mall, Level 4",
+    "screens": 5,
+    "facilities": ["IMAX with Laser", "Dolby Atmos 7.1", "Recliner Seating", "Gourmet Dining"],
+    "image": "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=800&auto=format&fit=crop&q=80"
+  },
+  {
+    "id": "THTR-02",
+    "name": "CineWave Luxe Cinema",
+    "city": "Metropolis",
+    "location": "Westfield Galleria, West Wing",
+    "screens": 4,
+    "facilities": ["Dolby Atmos", "VIP Lounge", "In-Seat Service", "4K Laser"],
+    "image": "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?w=800&auto=format&fit=crop&q=80"
+  },
+  {
+    "id": "THTR-03",
+    "name": "CineWave Spectrum Multiplex",
+    "city": "Gotham",
+    "location": "Park Avenue Plaza, Sector 12",
+    "screens": 6,
+    "facilities": ["4DX Experience", "Dolby 7.1", "Popcorn Bar", "Arcade"],
+    "image": "https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?w=800&auto=format&fit=crop&q=80"
+  },
+  {
+    "id": "THTR-04",
+    "name": "CineWave Royale",
+    "city": "Star City",
+    "location": "Starlight Promenade, 3rd Floor",
+    "screens": 3,
+    "facilities": ["IMAX 3D", "Dolby Atmos", "Cafeteria", "Valet Parking"],
+    "image": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&auto=format&fit=crop&q=80"
+  }
+]
