@@ -1,327 +1,209 @@
 /*!
- * proxy-addr
- * Copyright(c) 2014-2016 Douglas Christopher Wilson
+ * destroy
+ * Copyright(c) 2014 Jonathan Ong
+ * Copyright(c) 2015-2022 Douglas Christopher Wilson
  * MIT Licensed
  */
 
 'use strict'
 
 /**
- * Module exports.
- * @public
- */
-
-module.exports = proxyaddr
-module.exports.all = alladdrs
-module.exports.compile = compile
-
-/**
  * Module dependencies.
  * @private
  */
 
-var forwarded = require('forwarded')
-var ipaddr = require('ipaddr.js')
+var EventEmitter = require('events').EventEmitter
+var ReadStream = require('fs').ReadStream
+var Stream = require('stream')
+var Zlib = require('zlib')
 
 /**
- * Variables.
- * @private
- */
-
-var DIGIT_REGEXP = /^[0-9]+$/
-var isip = ipaddr.isValid
-var parseip = ipaddr.parse
-
-/**
- * Pre-defined IP ranges.
- * @private
- */
-
-var IP_RANGES = {
-  linklocal: ['169.254.0.0/16', 'fe80::/10'],
-  loopback: ['127.0.0.1/8', '::1/128'],
-  uniquelocal: ['10.0.0.0/8', '172.16.0.0/12', '192.168.0.0/16', 'fc00::/7']
-}
-
-/**
- * Get all addresses in the request, optionally stopping
- * at the first untrusted.
- *
- * @param {Object} request
- * @param {Function|Array|String} [trust]
+ * Module exports.
  * @public
  */
 
-function alladdrs (req, trust) {
-  // get addresses
-  var addrs = forwarded(req)
-
-  if (!trust) {
-    // Return all addresses
-    return addrs
-  }
-
-  if (typeof trust !== 'function') {
-    trust = compile(trust)
-  }
-
-  for (var i = 0; i < addrs.length - 1; i++) {
-    if (trust(addrs[i], i)) continue
-
-    addrs.length = i + 1
-  }
-
-  return addrs
-}
+module.exports = destroy
 
 /**
- * Compile argument into trust function.
+ * Destroy the given stream, and optionally suppress any future `error` events.
  *
- * @param {Array|String} val
- * @private
- */
-
-function compile (val) {
-  if (!val) {
-    throw new TypeError('argument is required')
-  }
-
-  var trust
-
-  if (typeof val === 'string') {
-    trust = [val]
-  } else if (Array.isArray(val)) {
-    trust = val.slice()
-  } else {
-    throw new TypeError('unsupported trust argument')
-  }
-
-  for (var i = 0; i < trust.length; i++) {
-    val = trust[i]
-
-    if (!Object.prototype.hasOwnProperty.call(IP_RANGES, val)) {
-      continue
-    }
-
-    // Splice in pre-defined range
-    val = IP_RANGES[val]
-    trust.splice.apply(trust, [i, 1].concat(val))
-    i += val.length - 1
-  }
-
-  return compileTrust(compileRangeSubnets(trust))
-}
-
-/**
- * Compile `arr` elements into range subnets.
- *
- * @param {Array} arr
- * @private
- */
-
-function compileRangeSubnets (arr) {
-  var rangeSubnets = new Array(arr.length)
-
-  for (var i = 0; i < arr.length; i++) {
-    rangeSubnets[i] = parseipNotation(arr[i])
-  }
-
-  return rangeSubnets
-}
-
-/**
- * Compile range subnet array into trust function.
- *
- * @param {Array} rangeSubnets
- * @private
- */
-
-function compileTrust (rangeSubnets) {
-  // Return optimized function based on length
-  var len = rangeSubnets.length
-  return len === 0
-    ? trustNone
-    : len === 1
-      ? trustSingle(rangeSubnets[0])
-      : trustMulti(rangeSubnets)
-}
-
-/**
- * Parse IP notation string into range subnet.
- *
- * @param {String} note
- * @private
- */
-
-function parseipNotation (note) {
-  var pos = note.lastIndexOf('/')
-  var str = pos !== -1
-    ? note.substring(0, pos)
-    : note
-
-  if (!isip(str)) {
-    throw new TypeError('invalid IP address: ' + str)
-  }
-
-  var ip = parseip(str)
-
-  if (pos === -1 && ip.kind() === 'ipv6' && ip.isIPv4MappedAddress()) {
-    // Store as IPv4
-    ip = ip.toIPv4Address()
-  }
-
-  var max = ip.kind() === 'ipv6'
-    ? 128
-    : 32
-
-  var range = pos !== -1
-    ? note.substring(pos + 1, note.length)
-    : null
-
-  if (range === null) {
-    range = max
-  } else if (DIGIT_REGEXP.test(range)) {
-    range = parseInt(range, 10)
-  } else if (ip.kind() === 'ipv4' && isip(range)) {
-    range = parseNetmask(range)
-  } else {
-    range = null
-  }
-
-  if (range <= 0 || range > max) {
-    throw new TypeError('invalid range on address: ' + note)
-  }
-
-  return [ip, range]
-}
-
-/**
- * Parse netmask string into CIDR range.
- *
- * @param {String} netmask
- * @private
- */
-
-function parseNetmask (netmask) {
-  var ip = parseip(netmask)
-  var kind = ip.kind()
-
-  return kind === 'ipv4'
-    ? ip.prefixLengthFromSubnetMask()
-    : null
-}
-
-/**
- * Determine address of proxied request.
- *
- * @param {Object} request
- * @param {Function|Array|String} trust
+ * @param {object} stream
+ * @param {boolean} suppress
  * @public
  */
 
-function proxyaddr (req, trust) {
-  if (!req) {
-    throw new TypeError('req argument is required')
+function destroy (stream, suppress) {
+  if (isFsReadStream(stream)) {
+    destroyReadStream(stream)
+  } else if (isZlibStream(stream)) {
+    destroyZlibStream(stream)
+  } else if (hasDestroy(stream)) {
+    stream.destroy()
   }
 
-  if (!trust) {
-    throw new TypeError('trust argument is required')
+  if (isEventEmitter(stream) && suppress) {
+    stream.removeAllListeners('error')
+    stream.addListener('error', noop)
   }
 
-  var addrs = alladdrs(req, trust)
-  var addr = addrs[addrs.length - 1]
-
-  return addr
+  return stream
 }
 
 /**
- * Static trust function to trust nothing.
+ * Destroy a ReadStream.
  *
+ * @param {object} stream
  * @private
  */
 
-function trustNone () {
-  return false
+function destroyReadStream (stream) {
+  stream.destroy()
+
+  if (typeof stream.close === 'function') {
+    // node.js core bug work-around
+    stream.on('open', onOpenClose)
+  }
 }
 
 /**
- * Compile trust function for multiple subnets.
+ * Close a Zlib stream.
  *
- * @param {Array} subnets
+ * Zlib streams below Node.js 4.5.5 have a buggy implementation
+ * of .close() when zlib encountered an error.
+ *
+ * @param {object} stream
  * @private
  */
 
-function trustMulti (subnets) {
-  return function trust (addr) {
-    if (!isip(addr)) return false
+function closeZlibStream (stream) {
+  if (stream._hadError === true) {
+    var prop = stream._binding === null
+      ? '_binding'
+      : '_handle'
 
-    var ip = parseip(addr)
-    var ipconv
-    var kind = ip.kind()
-
-    for (var i = 0; i < subnets.length; i++) {
-      var subnet = subnets[i]
-      var subnetip = subnet[0]
-      var subnetkind = subnetip.kind()
-      var subnetrange = subnet[1]
-      var trusted = ip
-
-      if (kind !== subnetkind) {
-        if (subnetkind === 'ipv4' && !ip.isIPv4MappedAddress()) {
-          // Incompatible IP addresses
-          continue
-        }
-
-        if (!ipconv) {
-          // Convert IP to match subnet IP kind
-          ipconv = subnetkind === 'ipv4'
-            ? ip.toIPv4Address()
-            : ip.toIPv4MappedAddress()
-        }
-
-        trusted = ipconv
-      }
-
-      if (trusted.match(subnetip, subnetrange)) {
-        return true
-      }
+    stream[prop] = {
+      close: function () { this[prop] = null }
     }
+  }
 
-    return false
+  stream.close()
+}
+
+/**
+ * Destroy a Zlib stream.
+ *
+ * Zlib streams don't have a destroy function in Node.js 6. On top of that
+ * simply calling destroy on a zlib stream in Node.js 8+ will result in a
+ * memory leak. So until that is fixed, we need to call both close AND destroy.
+ *
+ * PR to fix memory leak: https://github.com/nodejs/node/pull/23734
+ *
+ * In Node.js 6+8, it's important that destroy is called before close as the
+ * stream would otherwise emit the error 'zlib binding closed'.
+ *
+ * @param {object} stream
+ * @private
+ */
+
+function destroyZlibStream (stream) {
+  if (typeof stream.destroy === 'function') {
+    // node.js core bug work-around
+    // istanbul ignore if: node.js 0.8
+    if (stream._binding) {
+      // node.js < 0.10.0
+      stream.destroy()
+      if (stream._processing) {
+        stream._needDrain = true
+        stream.once('drain', onDrainClearBinding)
+      } else {
+        stream._binding.clear()
+      }
+    } else if (stream._destroy && stream._destroy !== Stream.Transform.prototype._destroy) {
+      // node.js >= 12, ^11.1.0, ^10.15.1
+      stream.destroy()
+    } else if (stream._destroy && typeof stream.close === 'function') {
+      // node.js 7, 8
+      stream.destroyed = true
+      stream.close()
+    } else {
+      // fallback
+      // istanbul ignore next
+      stream.destroy()
+    }
+  } else if (typeof stream.close === 'function') {
+    // node.js < 8 fallback
+    closeZlibStream(stream)
   }
 }
 
 /**
- * Compile trust function for single subnet.
- *
- * @param {Object} subnet
+ * Determine if stream has destroy.
  * @private
  */
 
-function trustSingle (subnet) {
-  var subnetip = subnet[0]
-  var subnetkind = subnetip.kind()
-  var subnetisipv4 = subnetkind === 'ipv4'
-  var subnetrange = subnet[1]
+function hasDestroy (stream) {
+  return stream instanceof Stream &&
+    typeof stream.destroy === 'function'
+}
 
-  return function trust (addr) {
-    if (!isip(addr)) return false
+/**
+ * Determine if val is EventEmitter.
+ * @private
+ */
 
-    var ip = parseip(addr)
-    var kind = ip.kind()
+function isEventEmitter (val) {
+  return val instanceof EventEmitter
+}
 
-    if (kind !== subnetkind) {
-      if (subnetisipv4 && !ip.isIPv4MappedAddress()) {
-        // Incompatible IP addresses
-        return false
-      }
+/**
+ * Determine if stream is fs.ReadStream stream.
+ * @private
+ */
 
-      // Convert IP to match subnet IP kind
-      ip = subnetisipv4
-        ? ip.toIPv4Address()
-        : ip.toIPv4MappedAddress()
-    }
+function isFsReadStream (stream) {
+  return stream instanceof ReadStream
+}
 
-    return ip.match(subnetip, subnetrange)
+/**
+ * Determine if stream is Zlib stream.
+ * @private
+ */
+
+function isZlibStream (stream) {
+  return stream instanceof Zlib.Gzip ||
+    stream instanceof Zlib.Gunzip ||
+    stream instanceof Zlib.Deflate ||
+    stream instanceof Zlib.DeflateRaw ||
+    stream instanceof Zlib.Inflate ||
+    stream instanceof Zlib.InflateRaw ||
+    stream instanceof Zlib.Unzip
+}
+
+/**
+ * No-op function.
+ * @private
+ */
+
+function noop () {}
+
+/**
+ * On drain handler to clear binding.
+ * @private
+ */
+
+// istanbul ignore next: node.js 0.8
+function onDrainClearBinding () {
+  this._binding.clear()
+}
+
+/**
+ * On open handler to close stream.
+ * @private
+ */
+
+function onOpenClose () {
+  if (typeof this.fd === 'number') {
+    // actually close down the fd
+    this.close()
   }
 }

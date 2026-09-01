@@ -1,139 +1,63 @@
-# proxy-addr
+# destroy
 
-[![NPM Version][npm-version-image]][npm-url]
-[![NPM Downloads][npm-downloads-image]][npm-url]
-[![Node.js Version][node-image]][node-url]
-[![Build Status][ci-image]][ci-url]
-[![Test Coverage][coveralls-image]][coveralls-url]
+[![NPM version][npm-image]][npm-url]
+[![Build Status][github-actions-ci-image]][github-actions-ci-url]
+[![Test coverage][coveralls-image]][coveralls-url]
+[![License][license-image]][license-url]
+[![Downloads][downloads-image]][downloads-url]
 
-Determine address of proxied request
+Destroy a stream.
 
-## Install
-
-This is a [Node.js](https://nodejs.org/en/) module available through the
-[npm registry](https://www.npmjs.com/). Installation is done using the
-[`npm install` command](https://docs.npmjs.com/getting-started/installing-npm-packages-locally):
-
-```sh
-$ npm install proxy-addr
-```
+This module is meant to ensure a stream gets destroyed, handling different APIs
+and Node.js bugs.
 
 ## API
 
 ```js
-var proxyaddr = require('proxy-addr')
+var destroy = require('destroy')
 ```
 
-### proxyaddr(req, trust)
+### destroy(stream [, suppress])
 
-Return the address of the request, using the given `trust` parameter.
+Destroy the given stream, and optionally suppress any future `error` events.
 
-The `trust` argument is a function that returns `true` if you trust
-the address, `false` if you don't. The closest untrusted address is
-returned.
+In most cases, this is identical to a simple `stream.destroy()` call. The rules
+are as follows for a given stream:
+
+  1. If the `stream` is an instance of `ReadStream`, then call `stream.destroy()`
+     and add a listener to the `open` event to call `stream.close()` if it is
+     fired. This is for a Node.js bug that will leak a file descriptor if
+     `.destroy()` is called before `open`.
+  2. If the `stream` is an instance of a zlib stream, then call `stream.destroy()`
+     and close the underlying zlib handle if open, otherwise call `stream.close()`.
+     This is for consistency across Node.js versions and a Node.js bug that will
+     leak a native zlib handle.
+  3. If the `stream` is not an instance of `Stream`, then nothing happens.
+  4. If the `stream` has a `.destroy()` method, then call it.
+
+The function returns the `stream` passed in as the argument.
+
+## Example
 
 ```js
-proxyaddr(req, function (addr) { return addr === '127.0.0.1' })
-proxyaddr(req, function (addr, i) { return i < 1 })
+var destroy = require('destroy')
+
+var fs = require('fs')
+var stream = fs.createReadStream('package.json')
+
+// ... and later
+destroy(stream)
 ```
 
-The `trust` arugment may also be a single IP address string or an
-array of trusted addresses, as plain IP addresses, CIDR-formatted
-strings, or IP/netmask strings.
-
-```js
-proxyaddr(req, '127.0.0.1')
-proxyaddr(req, ['127.0.0.0/8', '10.0.0.0/8'])
-proxyaddr(req, ['127.0.0.0/255.0.0.0', '192.168.0.0/255.255.0.0'])
-```
-
-This module also supports IPv6. Your IPv6 addresses will be normalized
-automatically (i.e. `fe80::00ed:1` equals `fe80:0:0:0:0:0:ed:1`).
-
-```js
-proxyaddr(req, '::1')
-proxyaddr(req, ['::1/128', 'fe80::/10'])
-```
-
-This module will automatically work with IPv4-mapped IPv6 addresses
-as well to support node.js in IPv6-only mode. This means that you do
-not have to specify both `::ffff:a00:1` and `10.0.0.1`.
-
-As a convenience, this module also takes certain pre-defined names
-in addition to IP addresses, which expand into IP addresses:
-
-```js
-proxyaddr(req, 'loopback')
-proxyaddr(req, ['loopback', 'fc00:ac:1ab5:fff::1/64'])
-```
-
-  * `loopback`: IPv4 and IPv6 loopback addresses (like `::1` and
-    `127.0.0.1`).
-  * `linklocal`: IPv4 and IPv6 link-local addresses (like
-    `fe80::1:1:1:1` and `169.254.0.1`).
-  * `uniquelocal`: IPv4 private addresses and IPv6 unique-local
-    addresses (like `fc00:ac:1ab5:fff::1` and `192.168.0.1`).
-
-When `trust` is specified as a function, it will be called for each
-address to determine if it is a trusted address. The function is
-given two arguments: `addr` and `i`, where `addr` is a string of
-the address to check and `i` is a number that represents the distance
-from the socket address.
-
-### proxyaddr.all(req, [trust])
-
-Return all the addresses of the request, optionally stopping at the
-first untrusted. This array is ordered from closest to furthest
-(i.e. `arr[0] === req.connection.remoteAddress`).
-
-```js
-proxyaddr.all(req)
-```
-
-The optional `trust` argument takes the same arguments as `trust`
-does in `proxyaddr(req, trust)`.
-
-```js
-proxyaddr.all(req, 'loopback')
-```
-
-### proxyaddr.compile(val)
-
-Compiles argument `val` into a `trust` function. This function takes
-the same arguments as `trust` does in `proxyaddr(req, trust)` and
-returns a function suitable for `proxyaddr(req, trust)`.
-
-```js
-var trust = proxyaddr.compile('loopback')
-var addr = proxyaddr(req, trust)
-```
-
-This function is meant to be optimized for use against every request.
-It is recommend to compile a trust function up-front for the trusted
-configuration and pass that to `proxyaddr(req, trust)` for each request.
-
-## Testing
-
-```sh
-$ npm test
-```
-
-## Benchmarks
-
-```sh
-$ npm run-script bench
-```
-
-## License
-
-[MIT](LICENSE)
-
-[ci-image]: https://badgen.net/github/checks/jshttp/proxy-addr/master?label=ci
-[ci-url]: https://github.com/jshttp/proxy-addr/actions?query=workflow%3Aci
-[coveralls-image]: https://badgen.net/coveralls/c/github/jshttp/proxy-addr/master
-[coveralls-url]: https://coveralls.io/r/jshttp/proxy-addr?branch=master
-[node-image]: https://badgen.net/npm/node/proxy-addr
-[node-url]: https://nodejs.org/en/download
-[npm-downloads-image]: https://badgen.net/npm/dm/proxy-addr
-[npm-url]: https://npmjs.org/package/proxy-addr
-[npm-version-image]: https://badgen.net/npm/v/proxy-addr
+[npm-image]: https://img.shields.io/npm/v/destroy.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/destroy
+[github-tag]: http://img.shields.io/github/tag/stream-utils/destroy.svg?style=flat-square
+[github-url]: https://github.com/stream-utils/destroy/tags
+[coveralls-image]: https://img.shields.io/coveralls/stream-utils/destroy.svg?style=flat-square
+[coveralls-url]: https://coveralls.io/r/stream-utils/destroy?branch=master
+[license-image]: http://img.shields.io/npm/l/destroy.svg?style=flat-square
+[license-url]: LICENSE.md
+[downloads-image]: http://img.shields.io/npm/dm/destroy.svg?style=flat-square
+[downloads-url]: https://npmjs.org/package/destroy
+[github-actions-ci-image]: https://img.shields.io/github/workflow/status/stream-utils/destroy/ci/master?label=ci&style=flat-square
+[github-actions-ci-url]: https://github.com/stream-utils/destroy/actions/workflows/ci.yml
