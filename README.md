@@ -1,90 +1,71 @@
-# mime
+# get-intrinsic <sup>[![Version Badge][npm-version-svg]][package-url]</sup>
 
-Comprehensive MIME type mapping API based on mime-db module.
+[![github actions][actions-image]][actions-url]
+[![coverage][codecov-image]][codecov-url]
+[![dependency status][deps-svg]][deps-url]
+[![dev dependency status][dev-deps-svg]][dev-deps-url]
+[![License][license-image]][license-url]
+[![Downloads][downloads-image]][downloads-url]
 
-## Install
+[![npm badge][npm-badge-png]][package-url]
 
-Install with [npm](http://github.com/isaacs/npm):
+Get and robustly cache all JS language-level intrinsics at first require time.
 
-    npm install mime
+See the syntax described [in the JS spec](https://tc39.es/ecma262/#sec-well-known-intrinsic-objects) for reference.
 
-## Contributing / Testing
-
-    npm run test
-
-## Command Line
-
-    mime [path_string]
-
-E.g.
-
-    > mime scripts/jquery.js
-    application/javascript
-
-## API - Queries
-
-### mime.lookup(path)
-Get the mime type associated with a file, if no mime type is found `application/octet-stream` is returned. Performs a case-insensitive lookup using the extension in `path` (the substring after the last '/' or '.').  E.g.
+## Example
 
 ```js
-var mime = require('mime');
+var GetIntrinsic = require('get-intrinsic');
+var assert = require('assert');
 
-mime.lookup('/path/to/file.txt');         // => 'text/plain'
-mime.lookup('file.txt');                  // => 'text/plain'
-mime.lookup('.TXT');                      // => 'text/plain'
-mime.lookup('htm');                       // => 'text/html'
+// static methods
+assert.equal(GetIntrinsic('%Math.pow%'), Math.pow);
+assert.equal(Math.pow(2, 3), 8);
+assert.equal(GetIntrinsic('%Math.pow%')(2, 3), 8);
+delete Math.pow;
+assert.equal(GetIntrinsic('%Math.pow%')(2, 3), 8);
+
+// instance methods
+var arr = [1];
+assert.equal(GetIntrinsic('%Array.prototype.push%'), Array.prototype.push);
+assert.deepEqual(arr, [1]);
+
+arr.push(2);
+assert.deepEqual(arr, [1, 2]);
+
+GetIntrinsic('%Array.prototype.push%').call(arr, 3);
+assert.deepEqual(arr, [1, 2, 3]);
+
+delete Array.prototype.push;
+GetIntrinsic('%Array.prototype.push%').call(arr, 4);
+assert.deepEqual(arr, [1, 2, 3, 4]);
+
+// missing features
+delete JSON.parse; // to simulate a real intrinsic that is missing in the environment
+assert.throws(() => GetIntrinsic('%JSON.parse%'));
+assert.equal(undefined, GetIntrinsic('%JSON.parse%', true));
 ```
 
-### mime.default_type
-Sets the mime type returned when `mime.lookup` fails to find the extension searched for. (Default is `application/octet-stream`.)
+## Tests
+Simply clone the repo, `npm install`, and run `npm test`
 
-### mime.extension(type)
-Get the default extension for `type`
+## Security
 
-```js
-mime.extension('text/html');                 // => 'html'
-mime.extension('application/octet-stream');  // => 'bin'
-```
+Please email [@ljharb](https://github.com/ljharb) or see https://tidelift.com/security if you have a potential security vulnerability to report.
 
-### mime.charsets.lookup()
-
-Map mime-type to charset
-
-```js
-mime.charsets.lookup('text/plain');        // => 'UTF-8'
-```
-
-(The logic for charset lookups is pretty rudimentary.  Feel free to suggest improvements.)
-
-## API - Defining Custom Types
-
-Custom type mappings can be added on a per-project basis via the following APIs.
-
-### mime.define()
-
-Add custom mime/extension mappings
-
-```js
-mime.define({
-    'text/x-some-format': ['x-sf', 'x-sft', 'x-sfml'],
-    'application/x-my-type': ['x-mt', 'x-mtt'],
-    // etc ...
-});
-
-mime.lookup('x-sft');                 // => 'text/x-some-format'
-```
-
-The first entry in the extensions array is returned by `mime.extension()`. E.g.
-
-```js
-mime.extension('text/x-some-format'); // => 'x-sf'
-```
-
-### mime.load(filepath)
-
-Load mappings from an Apache ".types" format file
-
-```js
-mime.load('./my_project.types');
-```
-The .types file format is simple -  See the `types` dir for examples.
+[package-url]: https://npmjs.org/package/get-intrinsic
+[npm-version-svg]: https://versionbadg.es/ljharb/get-intrinsic.svg
+[deps-svg]: https://david-dm.org/ljharb/get-intrinsic.svg
+[deps-url]: https://david-dm.org/ljharb/get-intrinsic
+[dev-deps-svg]: https://david-dm.org/ljharb/get-intrinsic/dev-status.svg
+[dev-deps-url]: https://david-dm.org/ljharb/get-intrinsic#info=devDependencies
+[npm-badge-png]: https://nodei.co/npm/get-intrinsic.png?downloads=true&stars=true
+[license-image]: https://img.shields.io/npm/l/get-intrinsic.svg
+[license-url]: LICENSE
+[downloads-image]: https://img.shields.io/npm/dm/get-intrinsic.svg
+[downloads-url]: https://npm-stat.com/charts.html?package=get-intrinsic
+[codecov-image]: https://codecov.io/gh/ljharb/get-intrinsic/branch/main/graphs/badge.svg
+[codecov-url]: https://app.codecov.io/gh/ljharb/get-intrinsic/
+[actions-image]: https://img.shields.io/endpoint?url=https://github-actions-badge-u3jn4tfpocch.runkit.sh/ljharb/get-intrinsic
+[actions-url]: https://github.com/ljharb/get-intrinsic/actions
