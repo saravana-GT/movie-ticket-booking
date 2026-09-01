@@ -1,156 +1,260 @@
-# safer-buffer [![travis][travis-image]][travis-url] [![npm][npm-image]][npm-url] [![javascript style guide][standard-image]][standard-url] [![Security Responsible Disclosure][secuirty-image]][secuirty-url]
+[![Express Logo](https://i.cloudup.com/zfY6lL7eFa-3000x3000.png)](http://expressjs.com/)
 
-[travis-image]: https://travis-ci.org/ChALkeR/safer-buffer.svg?branch=master
-[travis-url]: https://travis-ci.org/ChALkeR/safer-buffer
-[npm-image]: https://img.shields.io/npm/v/safer-buffer.svg
-[npm-url]: https://npmjs.org/package/safer-buffer
-[standard-image]: https://img.shields.io/badge/code_style-standard-brightgreen.svg
-[standard-url]: https://standardjs.com
-[secuirty-image]: https://img.shields.io/badge/Security-Responsible%20Disclosure-green.svg
-[secuirty-url]: https://github.com/nodejs/security-wg/blob/master/processes/responsible_disclosure_template.md
+**Fast, unopinionated, minimalist web framework for [Node.js](http://nodejs.org).**
 
-Modern Buffer API polyfill without footguns, working on Node.js from 0.8 to current.
+**This project has a [Code of Conduct][].**
 
-## How to use?
+## Table of contents
 
-First, port all `Buffer()` and `new Buffer()` calls to `Buffer.alloc()` and `Buffer.from()` API.
+* [Installation](#Installation)
+* [Features](#Features)
+* [Docs & Community](#docs--community)
+* [Quick Start](#Quick-Start)
+* [Running Tests](#Running-Tests)
+* [Philosophy](#Philosophy)
+* [Examples](#Examples)
+* [Contributing to Express](#Contributing)
+* [TC (Technical Committee)](#tc-technical-committee)
+* [Triagers](#triagers)
+* [License](#license)
 
-Then, to achieve compatibility with outdated Node.js versions (`<4.5.0` and 5.x `<5.9.0`), use
-`const Buffer = require('safer-buffer').Buffer` in all files where you make calls to the new
-Buffer API. _Use `var` instead of `const` if you need that for your Node.js version range support._
 
-Also, see the
-[porting Buffer](https://github.com/ChALkeR/safer-buffer/blob/master/Porting-Buffer.md) guide.
+[![NPM Version][npm-version-image]][npm-url]
+[![NPM Install Size][npm-install-size-image]][npm-install-size-url]
+[![NPM Downloads][npm-downloads-image]][npm-downloads-url]
+[![OpenSSF Scorecard Badge][ossf-scorecard-badge]][ossf-scorecard-visualizer]
 
-## Do I need it?
 
-Hopefully, not — dropping support for outdated Node.js versions should be fine nowdays, and that
-is the recommended path forward. You _do_ need to port to the `Buffer.alloc()` and `Buffer.from()`
-though.
+```js
+const express = require('express')
+const app = express()
 
-See the [porting guide](https://github.com/ChALkeR/safer-buffer/blob/master/Porting-Buffer.md)
-for a better description.
+app.get('/', function (req, res) {
+  res.send('Hello World')
+})
 
-## Why not [safe-buffer](https://npmjs.com/safe-buffer)?
-
-_In short: while `safe-buffer` serves as a polyfill for the new API, it allows old API usage and
-itself contains footguns._
-
-`safe-buffer` could be used safely to get the new API while still keeping support for older
-Node.js versions (like this module), but while analyzing ecosystem usage of the old Buffer API
-I found out that `safe-buffer` is itself causing problems in some cases.
-
-For example, consider the following snippet:
-
-```console
-$ cat example.unsafe.js
-console.log(Buffer(20))
-$ ./node-v6.13.0-linux-x64/bin/node example.unsafe.js
-<Buffer 0a 00 00 00 00 00 00 00 28 13 de 02 00 00 00 00 05 00 00 00>
-$ standard example.unsafe.js
-standard: Use JavaScript Standard Style (https://standardjs.com)
-  /home/chalker/repo/safer-buffer/example.unsafe.js:2:13: 'Buffer()' was deprecated since v6. Use 'Buffer.alloc()' or 'Buffer.from()' (use 'https://www.npmjs.com/package/safe-buffer' for '<4.5.0') instead.
+app.listen(3000)
 ```
 
-This is allocates and writes to console an uninitialized chunk of memory.
-[standard](https://www.npmjs.com/package/standard) linter (among others) catch that and warn people
-to avoid using unsafe API.
+## Installation
 
-Let's now throw in `safe-buffer`!
+This is a [Node.js](https://nodejs.org/en/) module available through the
+[npm registry](https://www.npmjs.com/).
+
+Before installing, [download and install Node.js](https://nodejs.org/en/download/).
+Node.js 0.10 or higher is required.
+
+If this is a brand new project, make sure to create a `package.json` first with
+the [`npm init` command](https://docs.npmjs.com/creating-a-package-json-file).
+
+Installation is done using the
+[`npm install` command](https://docs.npmjs.com/getting-started/installing-npm-packages-locally):
 
 ```console
-$ cat example.safe-buffer.js
-const Buffer = require('safe-buffer').Buffer
-console.log(Buffer(20))
-$ standard example.safe-buffer.js
-$ ./node-v6.13.0-linux-x64/bin/node example.safe-buffer.js
-<Buffer 08 00 00 00 00 00 00 00 28 58 01 82 fe 7f 00 00 00 00 00 00>
+$ npm install express
 ```
 
-See the problem? Adding in `safe-buffer` _magically removes the lint warning_, but the behavior
-remains identiсal to what we had before, and when launched on Node.js 6.x LTS — this dumps out
-chunks of uninitialized memory.
-_And this code will still emit runtime warnings on Node.js 10.x and above._
+Follow [our installing guide](http://expressjs.com/en/starter/installing.html)
+for more information.
 
-That was done by design. I first considered changing `safe-buffer`, prohibiting old API usage or
-emitting warnings on it, but that significantly diverges from `safe-buffer` design. After some
-discussion, it was decided to move my approach into a separate package, and _this is that separate
-package_.
+## Features
 
-This footgun is not imaginary — I observed top-downloaded packages doing that kind of thing,
-«fixing» the lint warning by blindly including `safe-buffer` without any actual changes.
+  * Robust routing
+  * Focus on high performance
+  * Super-high test coverage
+  * HTTP helpers (redirection, caching, etc)
+  * View system supporting 14+ template engines
+  * Content negotiation
+  * Executable for generating applications quickly
 
-Also in some cases, even if the API _was_ migrated to use of safe Buffer API — a random pull request
-can bring unsafe Buffer API usage back to the codebase by adding new calls — and that could go
-unnoticed even if you have a linter prohibiting that (becase of the reason stated above), and even
-pass CI. _I also observed that being done in popular packages._
+## Docs & Community
 
-Some examples:
- * [webdriverio](https://github.com/webdriverio/webdriverio/commit/05cbd3167c12e4930f09ef7cf93b127ba4effae4#diff-124380949022817b90b622871837d56cR31)
-   (a module with 548 759 downloads/month),
- * [websocket-stream](https://github.com/maxogden/websocket-stream/commit/c9312bd24d08271687d76da0fe3c83493871cf61)
-   (218 288 d/m, fix in [maxogden/websocket-stream#142](https://github.com/maxogden/websocket-stream/pull/142)),
- * [node-serialport](https://github.com/node-serialport/node-serialport/commit/e8d9d2b16c664224920ce1c895199b1ce2def48c)
-   (113 138 d/m, fix in [node-serialport/node-serialport#1510](https://github.com/node-serialport/node-serialport/pull/1510)),
- * [karma](https://github.com/karma-runner/karma/commit/3d94b8cf18c695104ca195334dc75ff054c74eec)
-   (3 973 193 d/m, fix in [karma-runner/karma#2947](https://github.com/karma-runner/karma/pull/2947)),
- * [spdy-transport](https://github.com/spdy-http2/spdy-transport/commit/5375ac33f4a62a4f65bcfc2827447d42a5dbe8b1)
-   (5 970 727 d/m, fix in [spdy-http2/spdy-transport#53](https://github.com/spdy-http2/spdy-transport/pull/53)).
- * And there are a lot more over the ecosystem.
+  * [Website and Documentation](http://expressjs.com/) - [[website repo](https://github.com/expressjs/expressjs.com)]
+  * [#express](https://web.libera.chat/#express) on [Libera Chat](https://libera.chat) IRC
+  * [GitHub Organization](https://github.com/expressjs) for Official Middleware & Modules
+  * Visit the [Wiki](https://github.com/expressjs/express/wiki)
+  * [Google Group](https://groups.google.com/group/express-js) for discussion
+  * [Gitter](https://gitter.im/expressjs/express) for support and discussion
 
-I filed a PR at
-[mysticatea/eslint-plugin-node#110](https://github.com/mysticatea/eslint-plugin-node/pull/110) to
-partially fix that (for cases when that lint rule is used), but it is a semver-major change for
-linter rules and presets, so it would take significant time for that to reach actual setups.
-_It also hasn't been released yet (2018-03-20)._
+**PROTIP** Be sure to read [Migrating from 3.x to 4.x](https://github.com/expressjs/express/wiki/Migrating-from-3.x-to-4.x) as well as [New features in 4.x](https://github.com/expressjs/express/wiki/New-features-in-4.x).
 
-Also, `safer-buffer` discourages the usage of `.allocUnsafe()`, which is often done by a mistake.
-It still supports it with an explicit concern barier, by placing it under
-`require('safer-buffer/dangereous')`.
+## Quick Start
 
-## But isn't throwing bad?
+  The quickest way to get started with express is to utilize the executable [`express(1)`](https://github.com/expressjs/generator) to generate an application as shown below:
 
-Not really. It's an error that could be noticed and fixed early, instead of causing havoc later like
-unguarded `new Buffer()` calls that end up receiving user input can do.
+  Install the executable. The executable's major version will match Express's:
 
-This package affects only the files where `var Buffer = require('safer-buffer').Buffer` was done, so
-it is really simple to keep track of things and make sure that you don't mix old API usage with that.
-Also, CI should hint anything that you might have missed.
+```console
+$ npm install -g express-generator@4
+```
 
-New commits, if tested, won't land new usage of unsafe Buffer API this way.
-_Node.js 10.x also deals with that by printing a runtime depecation warning._
+  Create the app:
 
-### Would it affect third-party modules?
+```console
+$ express /tmp/foo && cd /tmp/foo
+```
 
-No, unless you explicitly do an awful thing like monkey-patching or overriding the built-in `Buffer`.
-Don't do that.
+  Install dependencies:
 
-### But I don't want throwing…
+```console
+$ npm install
+```
 
-That is also fine!
+  Start the server:
 
-Also, it could be better in some cases when you don't comprehensive enough test coverage.
+```console
+$ npm start
+```
 
-In that case — just don't override `Buffer` and use
-`var SaferBuffer = require('safer-buffer').Buffer` instead.
+  View the website at: http://localhost:3000
 
-That way, everything using `Buffer` natively would still work, but there would be two drawbacks:
+## Philosophy
 
-* `Buffer.from`/`Buffer.alloc` won't be polyfilled — use `SaferBuffer.from` and
-  `SaferBuffer.alloc` instead.
-* You are still open to accidentally using the insecure deprecated API — use a linter to catch that.
+  The Express philosophy is to provide small, robust tooling for HTTP servers, making
+  it a great solution for single page applications, websites, hybrids, or public
+  HTTP APIs.
 
-Note that using a linter to catch accidential `Buffer` constructor usage in this case is strongly
-recommended. `Buffer` is not overriden in this usecase, so linters won't get confused.
+  Express does not force you to use any specific ORM or template engine. With support for over
+  14 template engines via [Consolidate.js](https://github.com/tj/consolidate.js),
+  you can quickly craft your perfect framework.
 
-## «Without footguns»?
+## Examples
 
-Well, it is still possible to do _some_ things with `Buffer` API, e.g. accessing `.buffer` property
-on older versions and duping things from there. You shouldn't do that in your code, probabably.
+  To view the examples, clone the Express repo and install the dependencies:
 
-The intention is to remove the most significant footguns that affect lots of packages in the
-ecosystem, and to do it in the proper way.
+```console
+$ git clone https://github.com/expressjs/express.git --depth 1
+$ cd express
+$ npm install
+```
 
-Also, this package doesn't protect against security issues affecting some Node.js versions, so for
-usage in your own production code, it is still recommended to update to a Node.js version
-[supported by upstream](https://github.com/nodejs/release#release-schedule).
+  Then run whichever example you want:
+
+```console
+$ node examples/content-negotiation
+```
+
+## Contributing
+
+  [![Linux Build][github-actions-ci-image]][github-actions-ci-url]
+  [![Windows Build][appveyor-image]][appveyor-url]
+  [![Test Coverage][coveralls-image]][coveralls-url]
+
+The Express.js project welcomes all constructive contributions. Contributions take many forms,
+from code for bug fixes and enhancements, to additions and fixes to documentation, additional
+tests, triaging incoming pull requests and issues, and more!
+
+See the [Contributing Guide](Contributing.md) for more technical details on contributing.
+
+### Security Issues
+
+If you discover a security vulnerability in Express, please see [Security Policies and Procedures](Security.md).
+
+### Running Tests
+
+To run the test suite, first install the dependencies, then run `npm test`:
+
+```console
+$ npm install
+$ npm test
+```
+
+## People
+
+The original author of Express is [TJ Holowaychuk](https://github.com/tj)
+
+[List of all contributors](https://github.com/expressjs/express/graphs/contributors)
+
+### TC (Technical Committee)
+
+* [UlisesGascon](https://github.com/UlisesGascon) - **Ulises Gascón** (he/him)
+* [jonchurch](https://github.com/jonchurch) - **Jon Church**
+* [wesleytodd](https://github.com/wesleytodd) - **Wes Todd**
+* [LinusU](https://github.com/LinusU) - **Linus Unnebäck**
+* [blakeembrey](https://github.com/blakeembrey) - **Blake Embrey**
+* [sheplu](https://github.com/sheplu) - **Jean Burellier**
+* [crandmck](https://github.com/crandmck) - **Rand McKinney**
+* [ctcpip](https://github.com/ctcpip) - **Chris de Almeida**
+
+<details>
+<summary>TC emeriti members</summary>
+
+#### TC emeriti members
+
+  * [dougwilson](https://github.com/dougwilson) - **Douglas Wilson**
+  * [hacksparrow](https://github.com/hacksparrow) - **Hage Yaapa**
+  * [jonathanong](https://github.com/jonathanong) - **jongleberry**
+  * [niftylettuce](https://github.com/niftylettuce) - **niftylettuce**
+  * [troygoode](https://github.com/troygoode) - **Troy Goode**
+</details>
+
+
+### Triagers
+
+* [aravindvnair99](https://github.com/aravindvnair99) - **Aravind Nair**
+* [carpasse](https://github.com/carpasse) - **Carlos Serrano**
+* [CBID2](https://github.com/CBID2) - **Christine Belzie**
+* [enyoghasim](https://github.com/enyoghasim) - **David Enyoghasim**
+* [UlisesGascon](https://github.com/UlisesGascon) - **Ulises Gascón** (he/him)
+* [mertcanaltin](https://github.com/mertcanaltin) - **Mert Can Altin**
+* [0ss](https://github.com/0ss) - **Salah**
+* [import-brain](https://github.com/import-brain) - **Eric Cheng** (he/him)
+* [3imed-jaberi](https://github.com/3imed-jaberi) - **Imed Jaberi**
+* [dakshkhetan](https://github.com/dakshkhetan) - **Daksh Khetan** (he/him)
+* [lucasraziel](https://github.com/lucasraziel) - **Lucas Soares Do Rego**
+* [IamLizu](https://github.com/IamLizu) - **S M Mahmudul Hasan** (he/him)
+* [Sushmeet](https://github.com/Sushmeet) - **Sushmeet Sunger**
+
+<details>
+<summary>Triagers emeriti members</summary>
+
+#### Emeritus Triagers
+
+  * [AuggieH](https://github.com/AuggieH) - **Auggie Hudak**
+  * [G-Rath](https://github.com/G-Rath) - **Gareth Jones**
+  * [MohammadXroid](https://github.com/MohammadXroid) - **Mohammad Ayashi**
+  * [NawafSwe](https://github.com/NawafSwe) - **Nawaf Alsharqi**
+  * [NotMoni](https://github.com/NotMoni) - **Moni**
+  * [VigneshMurugan](https://github.com/VigneshMurugan) - **Vignesh Murugan**
+  * [davidmashe](https://github.com/davidmashe) - **David Ashe**
+  * [digitaIfabric](https://github.com/digitaIfabric) - **David**
+  * [e-l-i-s-e](https://github.com/e-l-i-s-e) - **Elise Bonner**
+  * [fed135](https://github.com/fed135) - **Frederic Charette**
+  * [firmanJS](https://github.com/firmanJS) - **Firman Abdul Hakim**
+  * [getspooky](https://github.com/getspooky) - **Yasser Ameur**
+  * [ghinks](https://github.com/ghinks) - **Glenn**
+  * [ghousemohamed](https://github.com/ghousemohamed) - **Ghouse Mohamed**
+  * [gireeshpunathil](https://github.com/gireeshpunathil) - **Gireesh Punathil**
+  * [jake32321](https://github.com/jake32321) - **Jake Reed**
+  * [jonchurch](https://github.com/jonchurch) - **Jon Church**
+  * [lekanikotun](https://github.com/lekanikotun) - **Troy Goode**
+  * [marsonya](https://github.com/marsonya) - **Lekan Ikotun**
+  * [mastermatt](https://github.com/mastermatt) - **Matt R. Wilson**
+  * [maxakuru](https://github.com/maxakuru) - **Max Edell**
+  * [mlrawlings](https://github.com/mlrawlings) - **Michael Rawlings**
+  * [rodion-arr](https://github.com/rodion-arr) - **Rodion Abdurakhimov**
+  * [sheplu](https://github.com/sheplu) - **Jean Burellier**
+  * [tarunyadav1](https://github.com/tarunyadav1) - **Tarun yadav**
+  * [tunniclm](https://github.com/tunniclm) - **Mike Tunnicliffe**
+</details>
+
+
+## License
+
+  [MIT](LICENSE)
+
+[appveyor-image]: https://badgen.net/appveyor/ci/dougwilson/express/master?label=windows
+[appveyor-url]: https://ci.appveyor.com/project/dougwilson/express
+[coveralls-image]: https://badgen.net/coveralls/c/github/expressjs/express/master
+[coveralls-url]: https://coveralls.io/r/expressjs/express?branch=master
+[github-actions-ci-image]: https://badgen.net/github/checks/expressjs/express/master?label=linux
+[github-actions-ci-url]: https://github.com/expressjs/express/actions/workflows/ci.yml
+[npm-downloads-image]: https://badgen.net/npm/dm/express
+[npm-downloads-url]: https://npmcharts.com/compare/express?minimal=true
+[npm-install-size-image]: https://badgen.net/packagephobia/install/express
+[npm-install-size-url]: https://packagephobia.com/result?p=express
+[npm-url]: https://npmjs.org/package/express
+[npm-version-image]: https://badgen.net/npm/v/express
+[ossf-scorecard-badge]: https://api.scorecard.dev/projects/github.com/expressjs/express/badge
+[ossf-scorecard-visualizer]: https://ossf.github.io/scorecard-visualizer/#/projects/github.com/expressjs/express
+[Code of Conduct]: https://github.com/expressjs/express/blob/master/Code-Of-Conduct.md

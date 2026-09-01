@@ -4,7 +4,13 @@
 	"extends": "@ljharb",
 
 	"rules": {
+		"eqeqeq": ["error", "allow-null"],
 		"id-length": "off",
-		"sort-keys": "off",
+		"new-cap": ["error", {
+			"capIsNewExceptions": [
+				"RequireObjectCoercible",
+				"ToObject",
+			],
+		}],
 	},
 }
