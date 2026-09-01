@@ -1,156 +1,56 @@
-/*!
- * body-parser
- * Copyright(c) 2014-2015 Douglas Christopher Wilson
- * MIT Licensed
- */
+'use strict';
 
-'use strict'
+var $defineProperty = require('../');
 
-/**
- * Module dependencies.
- * @private
- */
+var test = require('tape');
+var gOPD = require('gopd');
 
-var deprecate = require('depd')('body-parser')
+test('defineProperty: supported', { skip: !$defineProperty }, function (t) {
+	t.plan(4);
 
-/**
- * Cache of loaded parsers.
- * @private
- */
+	t.equal(typeof $defineProperty, 'function', 'defineProperty is supported');
+	if ($defineProperty && gOPD) { // this `if` check is just to shut TS up
+		/** @type {{ a: number, b?: number, c?: number }} */
+		var o = { a: 1 };
 
-var parsers = Object.create(null)
+		$defineProperty(o, 'b', { enumerable: true, value: 2 });
+		t.deepEqual(
+			gOPD(o, 'b'),
+			{
+				configurable: false,
+				enumerable: true,
+				value: 2,
+				writable: false
+			},
+			'property descriptor is as expected'
+		);
 
-/**
- * @typedef Parsers
- * @type {function}
- * @property {function} json
- * @property {function} raw
- * @property {function} text
- * @property {function} urlencoded
- */
+		$defineProperty(o, 'c', { enumerable: false, value: 3, writable: true });
+		t.deepEqual(
+			gOPD(o, 'c'),
+			{
+				configurable: false,
+				enumerable: false,
+				value: 3,
+				writable: true
+			},
+			'property descriptor is as expected'
+		);
+	}
 
-/**
- * Module exports.
- * @type {Parsers}
- */
+	t.equal($defineProperty, Object.defineProperty, 'defineProperty is Object.defineProperty');
 
-exports = module.exports = deprecate.function(bodyParser,
-  'bodyParser: use individual json/urlencoded middlewares')
+	t.end();
+});
 
-/**
- * JSON parser.
- * @public
- */
+test('defineProperty: not supported', { skip: !!$defineProperty }, function (t) {
+	t.notOk($defineProperty, 'defineProperty is not supported');
 
-Object.defineProperty(exports, 'json', {
-  configurable: true,
-  enumerable: true,
-  get: createParserGetter('json')
-})
+	t.match(
+		typeof $defineProperty,
+		/^(?:undefined|boolean)$/,
+		'`typeof defineProperty` is `undefined` or `boolean`'
+	);
 
-/**
- * Raw parser.
- * @public
- */
-
-Object.defineProperty(exports, 'raw', {
-  configurable: true,
-  enumerable: true,
-  get: createParserGetter('raw')
-})
-
-/**
- * Text parser.
- * @public
- */
-
-Object.defineProperty(exports, 'text', {
-  configurable: true,
-  enumerable: true,
-  get: createParserGetter('text')
-})
-
-/**
- * URL-encoded parser.
- * @public
- */
-
-Object.defineProperty(exports, 'urlencoded', {
-  configurable: true,
-  enumerable: true,
-  get: createParserGetter('urlencoded')
-})
-
-/**
- * Create a middleware to parse json and urlencoded bodies.
- *
- * @param {object} [options]
- * @return {function}
- * @deprecated
- * @public
- */
-
-function bodyParser (options) {
-  // use default type for parsers
-  var opts = Object.create(options || null, {
-    type: {
-      configurable: true,
-      enumerable: true,
-      value: undefined,
-      writable: true
-    }
-  })
-
-  var _urlencoded = exports.urlencoded(opts)
-  var _json = exports.json(opts)
-
-  return function bodyParser (req, res, next) {
-    _json(req, res, function (err) {
-      if (err) return next(err)
-      _urlencoded(req, res, next)
-    })
-  }
-}
-
-/**
- * Create a getter for loading a parser.
- * @private
- */
-
-function createParserGetter (name) {
-  return function get () {
-    return loadParser(name)
-  }
-}
-
-/**
- * Load a parser module.
- * @private
- */
-
-function loadParser (parserName) {
-  var parser = parsers[parserName]
-
-  if (parser !== undefined) {
-    return parser
-  }
-
-  // this uses a switch for static require analysis
-  switch (parserName) {
-    case 'json':
-      parser = require('./lib/types/json')
-      break
-    case 'raw':
-      parser = require('./lib/types/raw')
-      break
-    case 'text':
-      parser = require('./lib/types/text')
-      break
-    case 'urlencoded':
-      parser = require('./lib/types/urlencoded')
-      break
-  }
-
-  // store to prevent invoking require()
-  return (parsers[parserName] = parser)
-}
+	t.end();
+});

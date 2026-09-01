@@ -5,26 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [v1.0.2](https://github.com/ljharb/call-bind-apply-helpers/compare/v1.0.1...v1.0.2) - 2025-02-12
+## [v1.0.1](https://github.com/ljharb/es-define-property/compare/v1.0.0...v1.0.1) - 2024-12-06
 
 ### Commits
 
-- [types] improve inferred types [`e6f9586`](https://github.com/ljharb/call-bind-apply-helpers/commit/e6f95860a3c72879cb861a858cdfb8138fbedec1)
-- [Dev Deps] update `@arethetypeswrong/cli`, `@ljharb/tsconfig`, `@types/tape`, `es-value-fixtures`, `for-each`, `has-strict-mode`, `object-inspect` [`e43d540`](https://github.com/ljharb/call-bind-apply-helpers/commit/e43d5409f97543bfbb11f345d47d8ce4e066d8c1)
+- [types] use shared tsconfig [`954a663`](https://github.com/ljharb/es-define-property/commit/954a66360326e508a0e5daa4b07493d58f5e110e)
+- [actions] split out node 10-20, and 20+ [`3a8e84b`](https://github.com/ljharb/es-define-property/commit/3a8e84b23883f26ff37b3e82ff283834228e18c6)
+- [Dev Deps] update `@ljharb/eslint-config`, `@ljharb/tsconfig`, `@types/get-intrinsic`, `@types/tape`, `auto-changelog`, `gopd`, `tape` [`86ae27b`](https://github.com/ljharb/es-define-property/commit/86ae27bb8cc857b23885136fad9cbe965ae36612)
+- [Refactor] avoid using `get-intrinsic` [`02480c0`](https://github.com/ljharb/es-define-property/commit/02480c0353ef6118965282977c3864aff53d98b1)
+- [Tests] replace `aud` with `npm audit` [`f6093ff`](https://github.com/ljharb/es-define-property/commit/f6093ff74ab51c98015c2592cd393bd42478e773)
+- [Tests] configure testling [`7139e66`](https://github.com/ljharb/es-define-property/commit/7139e66959247a56086d9977359caef27c6849e7)
+- [Dev Deps] update `tape` [`b901b51`](https://github.com/ljharb/es-define-property/commit/b901b511a75e001a40ce1a59fef7d9ffcfc87482)
+- [Tests] fix types in tests [`469d269`](https://github.com/ljharb/es-define-property/commit/469d269fd141b1e773ec053a9fa35843493583e0)
+- [Dev Deps] add missing peer dep [`733acfb`](https://github.com/ljharb/es-define-property/commit/733acfb0c4c96edf337e470b89a25a5b3724c352)
 
-## [v1.0.1](https://github.com/ljharb/call-bind-apply-helpers/compare/v1.0.0...v1.0.1) - 2024-12-08
+## v1.0.0 - 2024-02-12
 
 ### Commits
 
-- [types] `reflectApply`: fix types [`4efc396`](https://github.com/ljharb/call-bind-apply-helpers/commit/4efc3965351a4f02cc55e836fa391d3d11ef2ef8)
-- [Fix] `reflectApply`: oops, Reflect is not a function [`83cc739`](https://github.com/ljharb/call-bind-apply-helpers/commit/83cc7395de6b79b7730bdf092f1436f0b1263c75)
-- [Dev Deps] update `@arethetypeswrong/cli` [`80bd5d3`](https://github.com/ljharb/call-bind-apply-helpers/commit/80bd5d3ae58b4f6b6995ce439dd5a1bcb178a940)
-
-## v1.0.0 - 2024-12-05
-
-### Commits
-
-- Initial implementation, tests, readme [`7879629`](https://github.com/ljharb/call-bind-apply-helpers/commit/78796290f9b7430c9934d6f33d94ae9bc89fce04)
-- Initial commit [`3f1dc16`](https://github.com/ljharb/call-bind-apply-helpers/commit/3f1dc164afc43285631b114a5f9dd9137b2b952f)
-- npm init [`081df04`](https://github.com/ljharb/call-bind-apply-helpers/commit/081df048c312fcee400922026f6e97281200a603)
-- Only apps should have lockfiles [`5b9ca0f`](https://github.com/ljharb/call-bind-apply-helpers/commit/5b9ca0fe8101ebfaf309c549caac4e0a017ed930)
+- Initial implementation, tests, readme, types [`3e154e1`](https://github.com/ljharb/es-define-property/commit/3e154e11a2fee09127220f5e503bf2c0a31dd480)
+- Initial commit [`07d98de`](https://github.com/ljharb/es-define-property/commit/07d98de34a4dc31ff5e83a37c0c3f49e0d85cd50)
+- npm init [`c4eb634`](https://github.com/ljharb/es-define-property/commit/c4eb6348b0d3886aac36cef34ad2ee0665ea6f3e)
+- Only apps should have lockfiles [`7af86ec`](https://github.com/ljharb/es-define-property/commit/7af86ec1d311ec0b17fdfe616a25f64276903856)
