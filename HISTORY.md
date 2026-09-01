@@ -1,538 +1,507 @@
-0.19.2 / 2025-12-15
+1.52.0 / 2022-02-21
 ===================
 
-* deps: use tilde notation for dependencies
-* deps: http-errors@~2.0.1
-* deps: statuses@~2.0.2
+  * Add extensions from IANA for more `image/*` types
+  * Add extension `.asc` to `application/pgp-keys`
+  * Add extensions to various XML types
+  * Add new upstream MIME types
 
-0.19.1 / 2024-10-09
+1.51.0 / 2021-11-08
 ===================
 
-* deps: encodeurl@~2.0.0
+  * Add new upstream MIME types
+  * Mark `image/vnd.microsoft.icon` as compressible
+  * Mark `image/vnd.ms-dds` as compressible
 
-0.19.0 / 2024-09-10
+1.50.0 / 2021-09-15
 ===================
 
-* Remove link renderization in html while redirecting
+  * Add deprecated iWorks mime types and extensions
+  * Add new upstream MIME types
 
-0.18.0 / 2022-03-23
+1.49.0 / 2021-07-26
 ===================
 
-  * Fix emitted 416 error missing headers property
-  * Limit the headers removed for 304 response
-  * deps: depd@2.0.0
-    - Replace internal `eval` usage with `Function` constructor
-    - Use instance methods on `process` to check for listeners
-  * deps: destroy@1.2.0
-  * deps: http-errors@2.0.0
-    - deps: depd@2.0.0
-    - deps: statuses@2.0.1
-  * deps: on-finished@2.4.1
-  * deps: statuses@2.0.1
+  * Add extension `.trig` to `application/trig`
+  * Add new upstream MIME types
 
-0.17.2 / 2021-12-11
+1.48.0 / 2021-05-30
 ===================
 
-  * pref: ignore empty http tokens
-  * deps: http-errors@1.8.1
-    - deps: inherits@2.0.4
-    - deps: toidentifier@1.0.1
-    - deps: setprototypeof@1.2.0
-  * deps: ms@2.1.3
+  * Add extension `.mvt` to `application/vnd.mapbox-vector-tile`
+  * Add new upstream MIME types
+  * Mark `text/yaml` as compressible
 
-0.17.1 / 2019-05-10
+1.47.0 / 2021-04-01
 ===================
 
-  * Set stricter CSP header in redirect & error responses
-  * deps: range-parser@~1.2.1
+  * Add new upstream MIME types
+  * Remove ambigious extensions from IANA for `application/*+xml` types
+  * Update primary extension to `.es` for `application/ecmascript`
 
-0.17.0 / 2019-05-03
+1.46.0 / 2021-02-13
 ===================
 
-  * deps: http-errors@~1.7.2
-    - Set constructor name when possible
-    - Use `toidentifier` module to make class names
-    - deps: depd@~1.1.2
-    - deps: setprototypeof@1.1.1
-    - deps: statuses@'>= 1.5.0 < 2'
-  * deps: mime@1.6.0
-    - Add extensions for JPEG-2000 images
-    - Add new `font/*` types from IANA
-    - Add WASM mapping
-    - Update `.bdoc` to `application/bdoc`
-    - Update `.bmp` to `image/bmp`
-    - Update `.m4a` to `audio/mp4`
-    - Update `.rtf` to `application/rtf`
-    - Update `.wav` to `audio/wav`
-    - Update `.xml` to `application/xml`
-    - Update generic extensions to `application/octet-stream`:
-      `.deb`, `.dll`, `.dmg`, `.exe`, `.iso`, `.msi`
-    - Use mime-score module to resolve extension conflicts
-  * deps: ms@2.1.1
-    - Add `week`/`w` support
-    - Fix negative number handling
-  * deps: statuses@~1.5.0
-  * perf: remove redundant `path.normalize` call
+  * Add extension `.amr` to `audio/amr`
+  * Add extension `.m4s` to `video/iso.segment`
+  * Add extension `.opus` to `audio/ogg`
+  * Add new upstream MIME types
 
-0.16.2 / 2018-02-07
+1.45.0 / 2020-09-22
 ===================
 
-  * Fix incorrect end tag in default error & redirects
-  * deps: depd@~1.1.2
-    - perf: remove argument reassignment
-  * deps: encodeurl@~1.0.2
-    - Fix encoding `%` as last character
-  * deps: statuses@~1.4.0
+  * Add `application/ubjson` with extension `.ubj`
+  * Add `image/avif` with extension `.avif`
+  * Add `image/ktx2` with extension `.ktx2`
+  * Add extension `.dbf` to `application/vnd.dbf`
+  * Add extension `.rar` to `application/vnd.rar`
+  * Add extension `.td` to `application/urc-targetdesc+xml`
+  * Add new upstream MIME types
+  * Fix extension of `application/vnd.apple.keynote` to be `.key`
 
-0.16.1 / 2017-09-29
+1.44.0 / 2020-04-22
 ===================
 
-  * Fix regression in edge-case behavior for empty `path`
+  * Add charsets from IANA
+  * Add extension `.cjs` to `application/node`
+  * Add new upstream MIME types
 
-0.16.0 / 2017-09-27
+1.43.0 / 2020-01-05
 ===================
 
-  * Add `immutable` option
-  * Fix missing `</html>` in default error & redirects
-  * Use instance methods on steam to check for listeners
-  * deps: mime@1.4.1
-    - Add 70 new types for file extensions
-    - Set charset as "UTF-8" for .js and .json
-  * perf: improve path validation speed
+  * Add `application/x-keepass2` with extension `.kdbx`
+  * Add extension `.mxmf` to `audio/mobile-xmf`
+  * Add extensions from IANA for `application/*+xml` types
+  * Add new upstream MIME types
 
-0.15.6 / 2017-09-22
+1.42.0 / 2019-09-25
 ===================
 
-  * deps: debug@2.6.9
-  * perf: improve `If-Match` token parsing
+  * Add `image/vnd.ms-dds` with extension `.dds`
+  * Add new upstream MIME types
+  * Remove compressible from `multipart/mixed`
 
-0.15.5 / 2017-09-20
+1.41.0 / 2019-08-30
 ===================
 
-  * deps: etag@~1.8.1
-    - perf: replace regular expression with substring
-  * deps: fresh@0.5.2
-    - Fix handling of modified headers with invalid dates
-    - perf: improve ETag match loop
-    - perf: improve `If-None-Match` token parsing
+  * Add new upstream MIME types
+  * Add `application/toml` with extension `.toml`
+  * Mark `font/ttf` as compressible
 
-0.15.4 / 2017-08-05
+1.40.0 / 2019-04-20
 ===================
 
-  * deps: debug@2.6.8
-  * deps: depd@~1.1.1
-    - Remove unnecessary `Buffer` loading
-  * deps: http-errors@~1.6.2
-    - deps: depd@1.1.1
+  * Add extensions from IANA for `model/*` types
+  * Add `text/mdx` with extension `.mdx`
 
-0.15.3 / 2017-05-16
+1.39.0 / 2019-04-04
 ===================
 
-  * deps: debug@2.6.7
-    - deps: ms@2.0.0
-  * deps: ms@2.0.0
+  * Add extensions `.siv` and `.sieve` to `application/sieve`
+  * Add new upstream MIME types
 
-0.15.2 / 2017-04-26
+1.38.0 / 2019-02-04
 ===================
 
-  * deps: debug@2.6.4
-    - Fix `DEBUG_MAX_ARRAY_LENGTH`
-    - deps: ms@0.7.3
-  * deps: ms@1.0.0
+  * Add extension `.nq` to `application/n-quads`
+  * Add extension `.nt` to `application/n-triples`
+  * Add new upstream MIME types
+  * Mark `text/less` as compressible
 
-0.15.1 / 2017-03-04
+1.37.0 / 2018-10-19
 ===================
 
-  * Fix issue when `Date.parse` does not return `NaN` on invalid date
-  * Fix strict violation in broken environments
+  * Add extensions to HEIC image types
+  * Add new upstream MIME types
 
-0.15.0 / 2017-02-25
+1.36.0 / 2018-08-20
 ===================
 
-  * Support `If-Match` and `If-Unmodified-Since` headers
-  * Add `res` and `path` arguments to `directory` event
-  * Remove usage of `res._headers` private field
-    - Improves compatibility with Node.js 8 nightly
-  * Send complete HTML document in redirect & error responses
-  * Set default CSP header in redirect & error responses
-  * Use `res.getHeaderNames()` when available
-  * Use `res.headersSent` when available
-  * deps: debug@2.6.1
-    - Allow colors in workers
-    - Deprecated `DEBUG_FD` environment variable set to `3` or higher
-    - Fix error when running under React Native
-    - Use same color for same namespace
-    - deps: ms@0.7.2
-  * deps: etag@~1.8.0
-  * deps: fresh@0.5.0
-    - Fix false detection of `no-cache` request directive
-    - Fix incorrect result when `If-None-Match` has both `*` and ETags
-    - Fix weak `ETag` matching to match spec
-    - perf: delay reading header values until needed
-    - perf: enable strict mode
-    - perf: hoist regular expressions
-    - perf: remove duplicate conditional
-    - perf: remove unnecessary boolean coercions
-    - perf: skip checking modified time if ETag check failed
-    - perf: skip parsing `If-None-Match` when no `ETag` header
-    - perf: use `Date.parse` instead of `new Date`
-  * deps: http-errors@~1.6.1
-    - Make `message` property enumerable for `HttpError`s
-    - deps: setprototypeof@1.0.3
+  * Add Apple file extensions from IANA
+  * Add extensions from IANA for `image/*` types
+  * Add new upstream MIME types
 
-0.14.2 / 2017-01-23
+1.35.0 / 2018-07-15
 ===================
 
-  * deps: http-errors@~1.5.1
-    - deps: inherits@2.0.3
-    - deps: setprototypeof@1.0.2
-    - deps: statuses@'>= 1.3.1 < 2'
-  * deps: ms@0.7.2
-  * deps: statuses@~1.3.1
+  * Add extension `.owl` to `application/rdf+xml`
+  * Add new upstream MIME types
+    - Removes extension `.woff` from `application/font-woff`
 
-0.14.1 / 2016-06-09
+1.34.0 / 2018-06-03
 ===================
 
-  * Fix redirect error when `path` contains raw non-URL characters
-  * Fix redirect when `path` starts with multiple forward slashes
+  * Add extension `.csl` to `application/vnd.citationstyles.style+xml`
+  * Add extension `.es` to `application/ecmascript`
+  * Add new upstream MIME types
+  * Add `UTF-8` as default charset for `text/turtle`
+  * Mark all XML-derived types as compressible
 
-0.14.0 / 2016-06-06
+1.33.0 / 2018-02-15
 ===================
 
-  * Add `acceptRanges` option
-  * Add `cacheControl` option
-  * Attempt to combine multiple ranges into single range
-  * Correctly inherit from `Stream` class
-  * Fix `Content-Range` header in 416 responses when using `start`/`end` options
-  * Fix `Content-Range` header missing from default 416 responses
-  * Ignore non-byte `Range` headers
-  * deps: http-errors@~1.5.0
-    - Add `HttpError` export, for `err instanceof createError.HttpError`
-    - Support new code `421 Misdirected Request`
-    - Use `setprototypeof` module to replace `__proto__` setting
-    - deps: inherits@2.0.1
-    - deps: statuses@'>= 1.3.0 < 2'
-    - perf: enable strict mode
-  * deps: range-parser@~1.2.0
-    - Fix incorrectly returning -1 when there is at least one valid range
-    - perf: remove internal function
-  * deps: statuses@~1.3.0
-    - Add `421 Misdirected Request`
-    - perf: enable strict mode
-  * perf: remove argument reassignment
+  * Add extensions from IANA for `message/*` types
+  * Add new upstream MIME types
+  * Fix some incorrect OOXML types
+  * Remove `application/font-woff2`
 
-0.13.2 / 2016-03-05
+1.32.0 / 2017-11-29
 ===================
 
-  * Fix invalid `Content-Type` header when `send.mime.default_type` unset
+  * Add new upstream MIME types
+  * Update `text/hjson` to registered `application/hjson`
+  * Add `text/shex` with extension `.shex`
 
-0.13.1 / 2016-01-16
+1.31.0 / 2017-10-25
 ===================
 
-  * deps: depd@~1.1.0
-    - Support web browser loading
-    - perf: enable strict mode
-  * deps: destroy@~1.0.4
-    - perf: enable strict mode
-  * deps: escape-html@~1.0.3
-    - perf: enable strict mode
-    - perf: optimize string replacement
-    - perf: use faster string coercion
-  * deps: range-parser@~1.0.3
-    - perf: enable strict mode
+  * Add `application/raml+yaml` with extension `.raml`
+  * Add `application/wasm` with extension `.wasm`
+  * Add new `font` type from IANA
+  * Add new upstream font extensions
+  * Add new upstream MIME types
+  * Add extensions for JPEG-2000 images
 
-0.13.0 / 2015-06-16
+1.30.0 / 2017-08-27
 ===================
 
-  * Allow Node.js HTTP server to set `Date` response header
-  * Fix incorrectly removing `Content-Location` on 304 response
-  * Improve the default redirect response headers
-  * Send appropriate headers on default error response
-  * Use `http-errors` for standard emitted errors
-  * Use `statuses` instead of `http` module for status messages
-  * deps: escape-html@1.0.2
-  * deps: etag@~1.7.0
-    - Improve stat performance by removing hashing
-  * deps: fresh@0.3.0
-    - Add weak `ETag` matching support
-  * deps: on-finished@~2.3.0
-    - Add defined behavior for HTTP `CONNECT` requests
-    - Add defined behavior for HTTP `Upgrade` requests
-    - deps: ee-first@1.1.1
-  * perf: enable strict mode
-  * perf: remove unnecessary array allocations
+  * Add `application/vnd.ms-outlook`
+  * Add `application/x-arj`
+  * Add extension `.mjs` to `application/javascript`
+  * Add glTF types and extensions
+  * Add new upstream MIME types
+  * Add `text/x-org`
+  * Add VirtualBox MIME types
+  * Fix `source` records for `video/*` types that are IANA
+  * Update `font/opentype` to registered `font/otf`
 
-0.12.3 / 2015-05-13
+1.29.0 / 2017-07-10
 ===================
 
-  * deps: debug@~2.2.0
-    - deps: ms@0.7.1
-  * deps: depd@~1.0.1
-  * deps: etag@~1.6.0
-   - Improve support for JXcore
-   - Support "fake" stats objects in environments without `fs`
-  * deps: ms@0.7.1
-    - Prevent extraordinarily long inputs
-  * deps: on-finished@~2.2.1
+  * Add `application/fido.trusted-apps+json`
+  * Add extension `.wadl` to `application/vnd.sun.wadl+xml`
+  * Add new upstream MIME types
+  * Add `UTF-8` as default charset for `text/css`
 
-0.12.2 / 2015-03-13
+1.28.0 / 2017-05-14
 ===================
 
-  * Throw errors early for invalid `extensions` or `index` options
-  * deps: debug@~2.1.3
-    - Fix high intensity foreground color for bold
-    - deps: ms@0.7.0
+  * Add new upstream MIME types
+  * Add extension `.gz` to `application/gzip`
+  * Update extensions `.md` and `.markdown` to be `text/markdown`
 
-0.12.1 / 2015-02-17
+1.27.0 / 2017-03-16
 ===================
 
-  * Fix regression sending zero-length files
+  * Add new upstream MIME types
+  * Add `image/apng` with extension `.apng`
 
-0.12.0 / 2015-02-16
+1.26.0 / 2017-01-14
 ===================
 
-  * Always read the stat size from the file
-  * Fix mutating passed-in `options`
-  * deps: mime@1.3.4
+  * Add new upstream MIME types
+  * Add extension `.geojson` to `application/geo+json`
 
-0.11.1 / 2015-01-20
+1.25.0 / 2016-11-11
 ===================
 
-  * Fix `root` path disclosure
+  * Add new upstream MIME types
 
-0.11.0 / 2015-01-05
+1.24.0 / 2016-09-18
 ===================
 
-  * deps: debug@~2.1.1
-  * deps: etag@~1.5.1
-    - deps: crc@3.2.1
-  * deps: ms@0.7.0
-    - Add `milliseconds`
-    - Add `msecs`
-    - Add `secs`
-    - Add `mins`
-    - Add `hrs`
-    - Add `yrs`
-  * deps: on-finished@~2.2.0
+  * Add `audio/mp3`
+  * Add new upstream MIME types
 
-0.10.1 / 2014-10-22
+1.23.0 / 2016-05-01
 ===================
 
-  * deps: on-finished@~2.1.1
-    - Fix handling of pipelined requests
+  * Add new upstream MIME types
+  * Add extension `.3gpp` to `audio/3gpp`
 
-0.10.0 / 2014-10-15
+1.22.0 / 2016-02-15
 ===================
 
-  * deps: debug@~2.1.0
-    - Implement `DEBUG_FD` env variable support
-  * deps: depd@~1.0.0
-  * deps: etag@~1.5.0
-    - Improve string performance
-    - Slightly improve speed for weak ETags over 1KB
+  * Add `text/slim`
+  * Add extension `.rng` to `application/xml`
+  * Add new upstream MIME types
+  * Fix extension of `application/dash+xml` to be `.mpd`
+  * Update primary extension to `.m4a` for `audio/mp4`
 
-0.9.3 / 2014-09-24
+1.21.0 / 2016-01-06
+===================
+
+  * Add Google document types
+  * Add new upstream MIME types
+
+1.20.0 / 2015-11-10
+===================
+
+  * Add `text/x-suse-ymp`
+  * Add new upstream MIME types
+
+1.19.0 / 2015-09-17
+===================
+
+  * Add `application/vnd.apple.pkpass`
+  * Add new upstream MIME types
+
+1.18.0 / 2015-09-03
+===================
+
+  * Add new upstream MIME types
+
+1.17.0 / 2015-08-13
+===================
+
+  * Add `application/x-msdos-program`
+  * Add `audio/g711-0`
+  * Add `image/vnd.mozilla.apng`
+  * Add extension `.exe` to `application/x-msdos-program`
+
+1.16.0 / 2015-07-29
+===================
+
+  * Add `application/vnd.uri-map`
+
+1.15.0 / 2015-07-13
+===================
+
+  * Add `application/x-httpd-php`
+
+1.14.0 / 2015-06-25
+===================
+
+  * Add `application/scim+json`
+  * Add `application/vnd.3gpp.ussd+xml`
+  * Add `application/vnd.biopax.rdf+xml`
+  * Add `text/x-processing`
+
+1.13.0 / 2015-06-07
+===================
+
+  * Add nginx as a source
+  * Add `application/x-cocoa`
+  * Add `application/x-java-archive-diff`
+  * Add `application/x-makeself`
+  * Add `application/x-perl`
+  * Add `application/x-pilot`
+  * Add `application/x-redhat-package-manager`
+  * Add `application/x-sea`
+  * Add `audio/x-m4a`
+  * Add `audio/x-realaudio`
+  * Add `image/x-jng`
+  * Add `text/mathml`
+
+1.12.0 / 2015-06-05
+===================
+
+  * Add `application/bdoc`
+  * Add `application/vnd.hyperdrive+json`
+  * Add `application/x-bdoc`
+  * Add extension `.rtf` to `text/rtf`
+
+1.11.0 / 2015-05-31
+===================
+
+  * Add `audio/wav`
+  * Add `audio/wave`
+  * Add extension `.litcoffee` to `text/coffeescript`
+  * Add extension `.sfd-hdstx` to `application/vnd.hydrostatix.sof-data`
+  * Add extension `.n-gage` to `application/vnd.nokia.n-gage.symbian.install`
+
+1.10.0 / 2015-05-19
+===================
+
+  * Add `application/vnd.balsamiq.bmpr`
+  * Add `application/vnd.microsoft.portable-executable`
+  * Add `application/x-ns-proxy-autoconfig`
+
+1.9.1 / 2015-04-19
 ==================
 
-  * deps: etag@~1.4.0
-    - Support "fake" stats objects
+  * Remove `.json` extension from `application/manifest+json`
+    - This is causing bugs downstream
 
-0.9.2 / 2014-09-15
+1.9.0 / 2015-04-19
 ==================
 
-  * deps: depd@0.4.5
-  * deps: etag@~1.3.1
-  * deps: range-parser@~1.0.2
+  * Add `application/manifest+json`
+  * Add `application/vnd.micro+json`
+  * Add `image/vnd.zbrush.pcx`
+  * Add `image/x-ms-bmp`
 
-0.9.1 / 2014-09-07
+1.8.0 / 2015-03-13
 ==================
 
-  * deps: fresh@0.2.4
+  * Add `application/vnd.citationstyles.style+xml`
+  * Add `application/vnd.fastcopy-disk-image`
+  * Add `application/vnd.gov.sk.xmldatacontainer+xml`
+  * Add extension `.jsonld` to `application/ld+json`
 
-0.9.0 / 2014-09-07
+1.7.0 / 2015-02-08
 ==================
 
-  * Add `lastModified` option
-  * Use `etag` to generate `ETag` header
-  * deps: debug@~2.0.0
+  * Add `application/vnd.gerber`
+  * Add `application/vnd.msa-disk-image`
 
-0.8.5 / 2014-09-04
+1.6.1 / 2015-02-05
 ==================
 
-  * Fix malicious path detection for empty string path
+  * Community extensions ownership transferred from `node-mime`
 
-0.8.4 / 2014-09-04
+1.6.0 / 2015-01-29
 ==================
 
-  * Fix a path traversal issue when using `root`
+  * Add `application/jose`
+  * Add `application/jose+json`
+  * Add `application/json-seq`
+  * Add `application/jwk+json`
+  * Add `application/jwk-set+json`
+  * Add `application/jwt`
+  * Add `application/rdap+json`
+  * Add `application/vnd.gov.sk.e-form+xml`
+  * Add `application/vnd.ims.imsccv1p3`
 
-0.8.3 / 2014-08-16
+1.5.0 / 2014-12-30
 ==================
 
-  * deps: destroy@1.0.3
-    - renamed from dethroy
-  * deps: on-finished@2.1.0
+  * Add `application/vnd.oracle.resource+json`
+  * Fix various invalid MIME type entries
+    - `application/mbox+xml`
+    - `application/oscp-response`
+    - `application/vwg-multiplexed`
+    - `audio/g721`
 
-0.8.2 / 2014-08-14
+1.4.0 / 2014-12-21
 ==================
 
-  * Work around `fd` leak in Node.js 0.10 for `fs.ReadStream`
-  * deps: dethroy@1.0.2
+  * Add `application/vnd.ims.imsccv1p2`
+  * Fix various invalid MIME type entries
+    - `application/vnd-acucobol`
+    - `application/vnd-curl`
+    - `application/vnd-dart`
+    - `application/vnd-dxr`
+    - `application/vnd-fdf`
+    - `application/vnd-mif`
+    - `application/vnd-sema`
+    - `application/vnd-wap-wmlc`
+    - `application/vnd.adobe.flash-movie`
+    - `application/vnd.dece-zip`
+    - `application/vnd.dvb_service`
+    - `application/vnd.micrografx-igx`
+    - `application/vnd.sealed-doc`
+    - `application/vnd.sealed-eml`
+    - `application/vnd.sealed-mht`
+    - `application/vnd.sealed-ppt`
+    - `application/vnd.sealed-tiff`
+    - `application/vnd.sealed-xls`
+    - `application/vnd.sealedmedia.softseal-html`
+    - `application/vnd.sealedmedia.softseal-pdf`
+    - `application/vnd.wap-slc`
+    - `application/vnd.wap-wbxml`
+    - `audio/vnd.sealedmedia.softseal-mpeg`
+    - `image/vnd-djvu`
+    - `image/vnd-svf`
+    - `image/vnd-wap-wbmp`
+    - `image/vnd.sealed-png`
+    - `image/vnd.sealedmedia.softseal-gif`
+    - `image/vnd.sealedmedia.softseal-jpg`
+    - `model/vnd-dwf`
+    - `model/vnd.parasolid.transmit-binary`
+    - `model/vnd.parasolid.transmit-text`
+    - `text/vnd-a`
+    - `text/vnd-curl`
+    - `text/vnd.wap-wml`
+  * Remove example template MIME types
+    - `application/example`
+    - `audio/example`
+    - `image/example`
+    - `message/example`
+    - `model/example`
+    - `multipart/example`
+    - `text/example`
+    - `video/example`
 
-0.8.1 / 2014-08-05
+1.3.1 / 2014-12-16
 ==================
 
-  * Fix `extensions` behavior when file already has extension
+  * Fix missing extensions
+    - `application/json5`
+    - `text/hjson`
 
-0.8.0 / 2014-08-05
+1.3.0 / 2014-12-07
 ==================
 
-  * Add `extensions` option
+  * Add `application/a2l`
+  * Add `application/aml`
+  * Add `application/atfx`
+  * Add `application/atxml`
+  * Add `application/cdfx+xml`
+  * Add `application/dii`
+  * Add `application/json5`
+  * Add `application/lxf`
+  * Add `application/mf4`
+  * Add `application/vnd.apache.thrift.compact`
+  * Add `application/vnd.apache.thrift.json`
+  * Add `application/vnd.coffeescript`
+  * Add `application/vnd.enphase.envoy`
+  * Add `application/vnd.ims.imsccv1p1`
+  * Add `text/csv-schema`
+  * Add `text/hjson`
+  * Add `text/markdown`
+  * Add `text/yaml`
 
-0.7.4 / 2014-08-04
+1.2.0 / 2014-11-09
 ==================
 
-  * Fix serving index files without root dir
+  * Add `application/cea`
+  * Add `application/dit`
+  * Add `application/vnd.gov.sk.e-form+zip`
+  * Add `application/vnd.tmd.mediaflex.api+xml`
+  * Type `application/epub+zip` is now IANA-registered
 
-0.7.3 / 2014-07-29
+1.1.2 / 2014-10-23
 ==================
 
-  * Fix incorrect 403 on Windows and Node.js 0.11
+  * Rebuild database for `application/x-www-form-urlencoded` change
 
-0.7.2 / 2014-07-27
+1.1.1 / 2014-10-20
 ==================
 
-  * deps: depd@0.4.4
-    - Work-around v8 generating empty stack traces
+  * Mark `application/x-www-form-urlencoded` as compressible.
 
-0.7.1 / 2014-07-26
+1.1.0 / 2014-09-28
 ==================
 
- * deps: depd@0.4.3
-   - Fix exception when global `Error.stackTraceLimit` is too low
+  * Add `application/font-woff2`
 
-0.7.0 / 2014-07-20
+1.0.3 / 2014-09-25
 ==================
 
- * Deprecate `hidden` option; use `dotfiles` option
- * Add `dotfiles` option
- * deps: debug@1.0.4
- * deps: depd@0.4.2
-   - Add `TRACE_DEPRECATION` environment variable
-   - Remove non-standard grey color from color output
-   - Support `--no-deprecation` argument
-   - Support `--trace-deprecation` argument
+  * Fix engine requirement in package
 
-0.6.0 / 2014-07-11
+1.0.2 / 2014-09-25
 ==================
 
- * Deprecate `from` option; use `root` option
- * Deprecate `send.etag()` -- use `etag` in `options`
- * Deprecate `send.hidden()` -- use `hidden` in `options`
- * Deprecate `send.index()` -- use `index` in `options`
- * Deprecate `send.maxage()` -- use `maxAge` in `options`
- * Deprecate `send.root()` -- use `root` in `options`
- * Cap `maxAge` value to 1 year
- * deps: debug@1.0.3
-   - Add support for multiple wildcards in namespaces
+  * Add `application/coap-group+json`
+  * Add `application/dcd`
+  * Add `application/vnd.apache.thrift.binary`
+  * Add `image/vnd.tencent.tap`
+  * Mark all JSON-derived types as compressible
+  * Update `text/vtt` data
 
-0.5.0 / 2014-06-28
+1.0.1 / 2014-08-30
 ==================
 
- * Accept string for `maxAge` (converted by `ms`)
- * Add `headers` event
- * Include link in default redirect response
- * Use `EventEmitter.listenerCount` to count listeners
+  * Fix extension ordering
 
-0.4.3 / 2014-06-11
+1.0.0 / 2014-08-30
 ==================
 
- * Do not throw un-catchable error on file open race condition
- * Use `escape-html` for HTML escaping
- * deps: debug@1.0.2
-   - fix some debugging output colors on node.js 0.8
- * deps: finished@1.2.2
- * deps: fresh@0.2.2
-
-0.4.2 / 2014-06-09
-==================
-
- * fix "event emitter leak" warnings
- * deps: debug@1.0.1
- * deps: finished@1.2.1
-
-0.4.1 / 2014-06-02
-==================
-
- * Send `max-age` in `Cache-Control` in correct format
-
-0.4.0 / 2014-05-27
-==================
-
- * Calculate ETag with md5 for reduced collisions
- * Fix wrong behavior when index file matches directory
- * Ignore stream errors after request ends
-   - Goodbye `EBADF, read`
- * Skip directories in index file search
- * deps: debug@0.8.1
-
-0.3.0 / 2014-04-24
-==================
-
- * Fix sending files with dots without root set
- * Coerce option types
- * Accept API options in options object
- * Set etags to "weak"
- * Include file path in etag
- * Make "Can't set headers after they are sent." catchable
- * Send full entity-body for multi range requests
- * Default directory access to 403 when index disabled
- * Support multiple index paths
- * Support "If-Range" header
- * Control whether to generate etags
- * deps: mime@1.2.11
-
-0.2.0 / 2014-01-29
-==================
-
- * update range-parser and fresh
-
-0.1.4 / 2013-08-11
-==================
-
- * update fresh
-
-0.1.3 / 2013-07-08
-==================
-
- * Revert "Fix fd leak"
-
-0.1.2 / 2013-07-03
-==================
-
- * Fix fd leak
-
-0.1.0 / 2012-08-25
-==================
-
-  * add options parameter to send() that is passed to fs.createReadStream() [kanongil]
-
-0.0.4 / 2012-08-16
-==================
-
-  * allow custom "Accept-Ranges" definition
-
-0.0.3 / 2012-07-16
-==================
-
-  * fix normalization of the root directory. Closes #3
-
-0.0.2 / 2012-07-09
-==================
-
-  * add passing of req explicitly for now (YUCK)
-
-0.0.1 / 2010-01-03
-==================
-
-  * Initial release
+  * Add `application/atf`
+  * Add `application/merge-patch+json`
+  * Add `multipart/x-mixed-replace`
+  * Add `source: 'apache'` metadata
+  * Add `source: 'iana'` metadata
+  * Remove badly-assumed charset data
