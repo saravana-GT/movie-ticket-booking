@@ -1,209 +1,162 @@
-/*!
- * destroy
- * Copyright(c) 2014 Jonathan Ong
- * Copyright(c) 2015-2022 Douglas Christopher Wilson
- * MIT Licensed
+/**
+ * Helpers.
  */
 
-'use strict'
+var s = 1000;
+var m = s * 60;
+var h = m * 60;
+var d = h * 24;
+var w = d * 7;
+var y = d * 365.25;
 
 /**
- * Module dependencies.
- * @private
- */
-
-var EventEmitter = require('events').EventEmitter
-var ReadStream = require('fs').ReadStream
-var Stream = require('stream')
-var Zlib = require('zlib')
-
-/**
- * Module exports.
- * @public
- */
-
-module.exports = destroy
-
-/**
- * Destroy the given stream, and optionally suppress any future `error` events.
+ * Parse or format the given `val`.
  *
- * @param {object} stream
- * @param {boolean} suppress
- * @public
+ * Options:
+ *
+ *  - `long` verbose formatting [false]
+ *
+ * @param {String|Number} val
+ * @param {Object} [options]
+ * @throws {Error} throw an error if val is not a non-empty string or a number
+ * @return {String|Number}
+ * @api public
  */
 
-function destroy (stream, suppress) {
-  if (isFsReadStream(stream)) {
-    destroyReadStream(stream)
-  } else if (isZlibStream(stream)) {
-    destroyZlibStream(stream)
-  } else if (hasDestroy(stream)) {
-    stream.destroy()
+module.exports = function (val, options) {
+  options = options || {};
+  var type = typeof val;
+  if (type === 'string' && val.length > 0) {
+    return parse(val);
+  } else if (type === 'number' && isFinite(val)) {
+    return options.long ? fmtLong(val) : fmtShort(val);
   }
-
-  if (isEventEmitter(stream) && suppress) {
-    stream.removeAllListeners('error')
-    stream.addListener('error', noop)
-  }
-
-  return stream
-}
+  throw new Error(
+    'val is not a non-empty string or a valid number. val=' +
+      JSON.stringify(val)
+  );
+};
 
 /**
- * Destroy a ReadStream.
+ * Parse the given `str` and return milliseconds.
  *
- * @param {object} stream
- * @private
+ * @param {String} str
+ * @return {Number}
+ * @api private
  */
 
-function destroyReadStream (stream) {
-  stream.destroy()
-
-  if (typeof stream.close === 'function') {
-    // node.js core bug work-around
-    stream.on('open', onOpenClose)
+function parse(str) {
+  str = String(str);
+  if (str.length > 100) {
+    return;
   }
-}
-
-/**
- * Close a Zlib stream.
- *
- * Zlib streams below Node.js 4.5.5 have a buggy implementation
- * of .close() when zlib encountered an error.
- *
- * @param {object} stream
- * @private
- */
-
-function closeZlibStream (stream) {
-  if (stream._hadError === true) {
-    var prop = stream._binding === null
-      ? '_binding'
-      : '_handle'
-
-    stream[prop] = {
-      close: function () { this[prop] = null }
-    }
+  var match = /^(-?(?:\d+)?\.?\d+) *(milliseconds?|msecs?|ms|seconds?|secs?|s|minutes?|mins?|m|hours?|hrs?|h|days?|d|weeks?|w|years?|yrs?|y)?$/i.exec(
+    str
+  );
+  if (!match) {
+    return;
   }
-
-  stream.close()
-}
-
-/**
- * Destroy a Zlib stream.
- *
- * Zlib streams don't have a destroy function in Node.js 6. On top of that
- * simply calling destroy on a zlib stream in Node.js 8+ will result in a
- * memory leak. So until that is fixed, we need to call both close AND destroy.
- *
- * PR to fix memory leak: https://github.com/nodejs/node/pull/23734
- *
- * In Node.js 6+8, it's important that destroy is called before close as the
- * stream would otherwise emit the error 'zlib binding closed'.
- *
- * @param {object} stream
- * @private
- */
-
-function destroyZlibStream (stream) {
-  if (typeof stream.destroy === 'function') {
-    // node.js core bug work-around
-    // istanbul ignore if: node.js 0.8
-    if (stream._binding) {
-      // node.js < 0.10.0
-      stream.destroy()
-      if (stream._processing) {
-        stream._needDrain = true
-        stream.once('drain', onDrainClearBinding)
-      } else {
-        stream._binding.clear()
-      }
-    } else if (stream._destroy && stream._destroy !== Stream.Transform.prototype._destroy) {
-      // node.js >= 12, ^11.1.0, ^10.15.1
-      stream.destroy()
-    } else if (stream._destroy && typeof stream.close === 'function') {
-      // node.js 7, 8
-      stream.destroyed = true
-      stream.close()
-    } else {
-      // fallback
-      // istanbul ignore next
-      stream.destroy()
-    }
-  } else if (typeof stream.close === 'function') {
-    // node.js < 8 fallback
-    closeZlibStream(stream)
+  var n = parseFloat(match[1]);
+  var type = (match[2] || 'ms').toLowerCase();
+  switch (type) {
+    case 'years':
+    case 'year':
+    case 'yrs':
+    case 'yr':
+    case 'y':
+      return n * y;
+    case 'weeks':
+    case 'week':
+    case 'w':
+      return n * w;
+    case 'days':
+    case 'day':
+    case 'd':
+      return n * d;
+    case 'hours':
+    case 'hour':
+    case 'hrs':
+    case 'hr':
+    case 'h':
+      return n * h;
+    case 'minutes':
+    case 'minute':
+    case 'mins':
+    case 'min':
+    case 'm':
+      return n * m;
+    case 'seconds':
+    case 'second':
+    case 'secs':
+    case 'sec':
+    case 's':
+      return n * s;
+    case 'milliseconds':
+    case 'millisecond':
+    case 'msecs':
+    case 'msec':
+    case 'ms':
+      return n;
+    default:
+      return undefined;
   }
 }
 
 /**
- * Determine if stream has destroy.
- * @private
+ * Short format for `ms`.
+ *
+ * @param {Number} ms
+ * @return {String}
+ * @api private
  */
 
-function hasDestroy (stream) {
-  return stream instanceof Stream &&
-    typeof stream.destroy === 'function'
-}
-
-/**
- * Determine if val is EventEmitter.
- * @private
- */
-
-function isEventEmitter (val) {
-  return val instanceof EventEmitter
-}
-
-/**
- * Determine if stream is fs.ReadStream stream.
- * @private
- */
-
-function isFsReadStream (stream) {
-  return stream instanceof ReadStream
-}
-
-/**
- * Determine if stream is Zlib stream.
- * @private
- */
-
-function isZlibStream (stream) {
-  return stream instanceof Zlib.Gzip ||
-    stream instanceof Zlib.Gunzip ||
-    stream instanceof Zlib.Deflate ||
-    stream instanceof Zlib.DeflateRaw ||
-    stream instanceof Zlib.Inflate ||
-    stream instanceof Zlib.InflateRaw ||
-    stream instanceof Zlib.Unzip
-}
-
-/**
- * No-op function.
- * @private
- */
-
-function noop () {}
-
-/**
- * On drain handler to clear binding.
- * @private
- */
-
-// istanbul ignore next: node.js 0.8
-function onDrainClearBinding () {
-  this._binding.clear()
-}
-
-/**
- * On open handler to close stream.
- * @private
- */
-
-function onOpenClose () {
-  if (typeof this.fd === 'number') {
-    // actually close down the fd
-    this.close()
+function fmtShort(ms) {
+  var msAbs = Math.abs(ms);
+  if (msAbs >= d) {
+    return Math.round(ms / d) + 'd';
   }
+  if (msAbs >= h) {
+    return Math.round(ms / h) + 'h';
+  }
+  if (msAbs >= m) {
+    return Math.round(ms / m) + 'm';
+  }
+  if (msAbs >= s) {
+    return Math.round(ms / s) + 's';
+  }
+  return ms + 'ms';
+}
+
+/**
+ * Long format for `ms`.
+ *
+ * @param {Number} ms
+ * @return {String}
+ * @api private
+ */
+
+function fmtLong(ms) {
+  var msAbs = Math.abs(ms);
+  if (msAbs >= d) {
+    return plural(ms, msAbs, d, 'day');
+  }
+  if (msAbs >= h) {
+    return plural(ms, msAbs, h, 'hour');
+  }
+  if (msAbs >= m) {
+    return plural(ms, msAbs, m, 'minute');
+  }
+  if (msAbs >= s) {
+    return plural(ms, msAbs, s, 'second');
+  }
+  return ms + ' ms';
+}
+
+/**
+ * Pluralization helper.
+ */
+
+function plural(ms, msAbs, n, name) {
+  var isPlural = msAbs >= n * 1.5;
+  return Math.round(ms / n) + ' ' + name + (isPlural ? 's' : '');
 }
